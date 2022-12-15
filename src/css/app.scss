@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "select2";
+@import "./vendor/select2.scss";
+
+// @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
+.active {
+  @apply text-primary;
+  font-weight: bold;
+  background-color: white;
+  border: none;
+}
+
+.select2-container--default
+  .select2-selection--multiple
+  .select2-selection__choice__display {
+  cursor: default;
+  padding-left: 2px;
+  padding-right: 5px;
+  white-space: normal;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
