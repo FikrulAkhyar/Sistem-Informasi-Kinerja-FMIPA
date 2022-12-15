@@ -4,14 +4,14 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateTableIndikatorKerja extends Migration
+class CreateTableIndikatorKinerja extends Migration
 {
     public function up()
     {
         $this->forge->addField([
             'ik_id' => [
                 'type'       => 'INT',
-                'auto_increment' => true,
+                'auto_increment' => true
             ],
             'sasaran_id' => [
                 'type'       => 'INT',
@@ -22,38 +22,50 @@ class CreateTableIndikatorKerja extends Migration
             ],
             'ket_fakultas' => [
                 'type'       => 'TEXT',
+                'null'      => true
             ],
             'ket_jurusan' => [
                 'type'       => 'TEXT',
+                'null'      => true
             ],
             'satuan_fakultas' => [
                 'type'       => 'INT',
+                'null'      => true
             ],
             'satuan_jurusan' => [
                 'type'       => 'INT',
+                'null'      => true
             ],
             'tahun' => [
-                'type'       => 'INT',
+                'type'       => 'INT'
             ],
             'target' => [
-                'type'       => 'INT',
+                'type'       => 'INT'
             ],
             'cascading_jurusan' => [
                 'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'      => true
             ],
             'cascading_fakultas' => [
                 'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'      => true
             ],
             'is_jurusan' => [
-                'type'       => 'BOOLEAN',
+                'type'       => 'INT'
             ],
         ]);
         $this->forge->addKey('ik_id', true);
-        $this->forge->createTable('indikator_kerja');
+        $this->forge->addForeignKey('sasaran_id', 'sasaran', 'sasaran_id');
+        $this->forge->addForeignKey('satuan_jurusan', 'satuan', 'satuan_id');
+        $this->forge->addForeignKey('satuan_fakultas', 'satuan', 'satuan_id');
+
+        $this->forge->createTable('indikator_kinerja');
     }
 
     public function down()
     {
-        $this->forge->dropTable('indikator_kerja');
+        $this->forge->dropTable('indikator_kinerja');
     }
 }

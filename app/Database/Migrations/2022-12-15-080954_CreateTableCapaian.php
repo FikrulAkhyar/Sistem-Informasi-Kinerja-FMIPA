@@ -39,6 +39,9 @@ class CreateTableCapaian extends Migration
             ],
         ]);
         $this->forge->addKey('capaian_id', true);
+        $this->forge->addForeignKey('ik_id', 'indikator_kerja', 'ik_id');
+        $this->forge->addForeignKey('jurusan_id', 'jurusan', 'jurusan_id');
+
         $this->forge->createTable('capaian');
     }
 

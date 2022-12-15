@@ -20,6 +20,9 @@ class CreateTableSatuan extends Migration
         ]);
         $this->forge->addKey('satuan_id', true);
         $this->forge->createTable('satuan');
+
+        $seeder = \Config\Database::seeder();
+        $seeder->call('SatuanSeeder');
     }
 
     public function down()

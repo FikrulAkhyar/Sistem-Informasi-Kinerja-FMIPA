@@ -27,9 +27,11 @@ class CreateTableUsers extends Migration
             ],
             'jurusan_id' => [
                 'type'       => 'INT',
+                'null'      => true
             ],
         ]);
         $this->forge->addKey('user_id', true);
+        $this->forge->addForeignKey('jurusan_id', 'jurusan', 'jurusan_id');
         $this->forge->createTable('users');
     }
 

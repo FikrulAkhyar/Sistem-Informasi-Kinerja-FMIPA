@@ -19,6 +19,9 @@ class CreateTableSasaran extends Migration
         ]);
         $this->forge->addKey('sasaran_id', true);
         $this->forge->createTable('sasaran');
+
+        $seeder = \Config\Database::seeder();
+        $seeder->call('SasaranSeeder');
     }
 
     public function down()

@@ -20,6 +20,9 @@ class CreateTableJurusan extends Migration
         ]);
         $this->forge->addKey('jurusan_id', true);
         $this->forge->createTable('jurusan');
+
+        $seeder = \Config\Database::seeder();
+        $seeder->call('JurusanSeeder');
     }
 
     public function down()

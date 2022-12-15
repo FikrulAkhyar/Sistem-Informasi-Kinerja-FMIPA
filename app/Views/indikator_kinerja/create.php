@@ -14,10 +14,9 @@
             </label>
             <select type="text" name="sasaran" id="sasaran" class="select select-bordered" style="width: 100%;">
                 <option disabled selected>Pilih Sasaran</option>
-                <option value="1">Tersedianya lulusan yang memiliki nilai-nilai religius, mandiri, sosial, beretika, berakhlak mulia, berkarakter dan mampu mengaplikasikan nilai-nilai Syiah Kuala dan terciptanya lulusan yang berjiwa entrepreneur, leadership, kreatif, inovatif, dan tangguh sehingga mampu bersaing pada level nasional dan global</option>
-                <option value="2">Terwujudnya hasil-hasil penelitian dan pengabdian masyarakat yang inovatif, aplikatif dan berdampak langsung kepada masyarakat dalam rangka mendukung pembangunan daerah, nasional dan global</option>
-                <option value="3">Terealisasi peningkatan kerjasama dengan berbagai institusi nasional dan global di bidang IPTEK, Humaniora, Olahraga dan Seni</option>
-                <option value="4">Terwujudnya tata kelola manajemen pendidikan tinggi yang bermutu</option>
+                <?php foreach ($sasaran as $s) : ?>
+                    <option value="<?= $s['sasaran_id'] ?>"><?= $s['keterangan'] ?></option>
+                <?php endforeach ?>
             </select>
         </div>
 
@@ -62,20 +61,9 @@
                     </label>
                     <select type="text" name="satuan_fakultas" id="satuan_fakultas" class="select select-bordered" style="width: 100%;">
                         <option disabled selected>Pilih Satuan</option>
-                        <option value="1">Persentase (%)</option>
-                        <option value="2">Jumlah</option>
-                        <option value="3">Nilai</option>
-                        <option value="4">Tahun</option>
-                        <option value="5">Lab</option>
-                        <option value="6">Ranking</option>
-                        <option value="7">PUI</option>
-                        <option value="8">Jurnal</option>
-                        <option value="9">Sitasi</option>
-                        <option value="10">Produk</option>
-                        <option value="11">Buah</option>
-                        <option value="12">Orang</option>
-                        <option value="13">Mahasiswa</option>
-                        <option value="14">Kegiatan</option>
+                        <?php foreach ($satuan as $st) : ?>
+                            <option value="<?= $st['satuan_id'] ?>"><?= $st['nama_satuan'] ?></option>
+                        <?php endforeach ?>
                     </select>
                 </div>
 
@@ -84,23 +72,9 @@
                         <span class="label-text label-required">Cascading (Fakultas)</span>
                     </label>
                     <select name="cascading_fakultas" id="cascading_fakultas" multiple="multiple" data-placeholder="Pilih Cascading" class="select select-bordered" style="width: 100%;">
-                        <option value="1">Wakil Dekan I</option>
-                        <option value="2">Wakil Dekan II</option>
-                        <option value="3">Wakil Direktur I PPS</option>
-                        <option value="4">Wakil Direktur II PPS</option>
-                        <option value="5">Ketua LP3M</option>
-                        <option value="6">Ketua LP2M</option>
-                        <option value="5">Semua Kepala UPT</option>
-                        <option value="6">Kepala UPT TIK</option>
-                        <option value="7">Kepala UPT Lab Terpadu</option>
-                        <option value="8">Kepala UPT Perpustakaan</option>
-                        <option value="9">Kepala UPT Kewirausahaan</option>
-                        <option value="10">Kepala UPT Pusat Bahasa</option>
-                        <option value="11">Kepala UPT Pusat Mitigasi Bencana</option>
-                        <option value="12">Jurusan</option>
-                        <option value="13">Prodi S1</option>
-                        <option value="14">Prodi S2</option>
-                        <option value="15">Prodi D3</option>
+                        <?php foreach ($cascading as $c) : ?>
+                            <option value="<?= $c['cascading_id'] ?>"><?= $c['nama_cascading'] ?></option>
+                        <?php endforeach ?>
                     </select>
                 </div>
             </div>
@@ -119,20 +93,9 @@
                     </label>
                     <select type="text" name="satuan_jurusan" id="satuan_jurusan" class="select select-bordered" style="width: 100%;">
                         <option disabled selected>Pilih Satuan</option>
-                        <option value="1">Persentase (%)</option>
-                        <option value="2">Jumlah</option>
-                        <option value="3">Nilai</option>
-                        <option value="4">Tahun</option>
-                        <option value="5">Lab</option>
-                        <option value="6">Ranking</option>
-                        <option value="7">PUI</option>
-                        <option value="8">Jurnal</option>
-                        <option value="9">Sitasi</option>
-                        <option value="10">Produk</option>
-                        <option value="11">Buah</option>
-                        <option value="12">Orang</option>
-                        <option value="13">Mahasiswa</option>
-                        <option value="14">Kegiatan</option>
+                        <?php foreach ($satuan as $st) : ?>
+                            <option value="<?= $st['satuan_id'] ?>"><?= $st['nama_satuan'] ?></option>
+                        <?php endforeach ?>
                     </select>
                 </div>
 
@@ -141,23 +104,9 @@
                         <span class="label-text label-required">Cascading (Jurusan)</span>
                     </label>
                     <select name="cascading_jurusan" id="cascading_jurusan" multiple="multiple" data-placeholder="Pilih Cascading" class="select select-bordered" style="width: 100%;">
-                        <option value="1">Wakil Dekan I</option>
-                        <option value="2">Wakil Dekan II</option>
-                        <option value="3">Wakil Direktur I PPS</option>
-                        <option value="4">Wakil Direktur II PPS</option>
-                        <option value="5">Ketua LP3M</option>
-                        <option value="6">Ketua LP2M</option>
-                        <option value="5">Semua Kepala UPT</option>
-                        <option value="6">Kepala UPT TIK</option>
-                        <option value="7">Kepala UPT Lab Terpadu</option>
-                        <option value="8">Kepala UPT Perpustakaan</option>
-                        <option value="9">Kepala UPT Kewirausahaan</option>
-                        <option value="10">Kepala UPT Pusat Bahasa</option>
-                        <option value="11">Kepala UPT Pusat Mitigasi Bencana</option>
-                        <option value="12">Jurusan</option>
-                        <option value="13">Prodi S1</option>
-                        <option value="14">Prodi S2</option>
-                        <option value="15">Prodi D3</option>
+                        <?php foreach ($cascading as $c) : ?>
+                            <option value="<?= $c['cascading_id'] ?>"><?= $c['nama_cascading'] ?></option>
+                        <?php endforeach ?>
                     </select>
                 </div>
             </div>

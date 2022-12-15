@@ -20,6 +20,9 @@ class CreateTableCascading extends Migration
         ]);
         $this->forge->addKey('cascading_id', true);
         $this->forge->createTable('cascading');
+
+        $seeder = \Config\Database::seeder();
+        $seeder->call('CascadingSeeder');
     }
 
     public function down()
