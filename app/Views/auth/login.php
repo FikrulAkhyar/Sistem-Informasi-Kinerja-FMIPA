@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aceh Biodiversity</title>
+    <title>Sistem Informasi Kinerja FMIPA USK</title>
     <link rel="stylesheet" href="<?= base_url('css/app.css') ?>">
     <script src="<?= base_url('js/app.js') ?>"></script>
     <script>
@@ -19,7 +19,7 @@
             <img src="<?= base_url('images/logo.png') ?>" class="mx-auto" alt="logo" width="300">
         </div>
 
-        <div class="max-w-md lg:m-auto w-full">
+        <div class="max-w-md lg:m-auto w-full mx-auto">
 
             <form id="form-login" method="POST" action="">
                 <div class="form-control">
