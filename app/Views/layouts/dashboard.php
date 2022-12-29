@@ -31,7 +31,7 @@
                         </label>
                     </div>
                     <div class="flex-none gap-2">
-                        <div class="pt-3 font-semibold">Admin FMIPA</div>
+                        <div class="pt-3 font-semibold">Admin</div>
                         <div class="dropdown dropdown-end">
                             <label tabindex="0" class="btn btn-ghost btn-circle avatar">
                                 <div class="w-15 rounded-full">
@@ -74,13 +74,30 @@
                     <!-- Sidebar content here -->
                     <img src="<?= base_url('images/logo.png') ?>" alt="Logo" width="200" class="mx-auto">
                     <hr class="my-5">
-                    <li class="<?= strpos(current_url(), 'beranda') ? 'active' : '' ?>">
+                    <li class="<?= strpos(current_url(), 'beranda') || current_url() == base_url() . '/' ? 'active' : '' ?>">
                         <a class="flex justify-between" href="<?= base_url('beranda') ?>">
                             <div class="flex justify-start">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
                                 </svg>
-                                <span class="pl-2">Beranda</span>
+                                <span class="pl-2 text-sm mt-1">Beranda</span>
+                            </div>
+
+                            <div>
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="<?= strpos(current_url(), 'pengguna') ? 'active' : '' ?>">
+                        <a class="flex justify-between" href="<?= base_url('pengguna') ?>">
+                            <div class="flex justify-start">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
+                                </svg>
+                                <span class="pl-2 text-sm mt-1">Kelola Pengguna</span>
                             </div>
 
                             <div>
@@ -97,7 +114,7 @@
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"></path>
                                 </svg>
-                                <span class="pl-2">Capaian Fakultas</span>
+                                <span class="pl-2 text-sm mt-1">Capaian Fakultas</span>
                             </div>
 
                             <div>
@@ -114,7 +131,7 @@
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"></path>
                                 </svg>
-                                <span class="pl-2">Capaian Jurusan</span>
+                                <span class="pl-2 text-sm mt-1">Capaian Jurusan</span>
                             </div>
 
                             <div>
@@ -131,7 +148,7 @@
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"></path>
                                 </svg>
-                                <span class="pl-2">Indikator Kinerja</span>
+                                <span class="pl-2 text-sm mt-1">Indikator Kinerja</span>
                             </div>
 
                             <div>

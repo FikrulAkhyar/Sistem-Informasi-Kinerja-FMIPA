@@ -15,30 +15,37 @@ class JurusanSeeder extends Seeder
             [
                 'jurusan_id' => '1',
                 'nama_jurusan' => 'Matematika',
+                'fakultas' => 'MIPA',
             ],
             [
                 'jurusan_id' => '2',
-                'nama_jurusan' => 'Kimia',
+                'nama_jurusan' => 'Fisika',
+                'fakultas' => 'MIPA',
             ],
             [
                 'jurusan_id' => '3',
-                'nama_jurusan' => 'Fisika',
+                'nama_jurusan' => 'Kimia',
+                'fakultas' => 'MIPA',
             ],
             [
                 'jurusan_id' => '4',
-                'nama_jurusan' => 'Informatika',
+                'nama_jurusan' => 'Biologi',
+                'fakultas' => 'MIPA',
             ],
             [
                 'jurusan_id' => '5',
-                'nama_jurusan' => 'Biologi',
+                'nama_jurusan' => 'Informatika',
+                'fakultas' => 'MIPA',
             ],
             [
                 'jurusan_id' => '6',
                 'nama_jurusan' => 'Farmasi',
+                'fakultas' => 'MIPA',
             ],
             [
                 'jurusan_id' => '7',
                 'nama_jurusan' => 'Statistika',
+                'fakultas' => 'MIPA',
             ],
         ]);
     }

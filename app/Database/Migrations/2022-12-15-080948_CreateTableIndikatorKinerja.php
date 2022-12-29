@@ -9,57 +9,36 @@ class CreateTableIndikatorKinerja extends Migration
     public function up()
     {
         $this->forge->addField([
-            'ik_id' => [
+            'indikator_kinerja_id' => [
                 'type'       => 'INT',
                 'auto_increment' => true
             ],
             'sasaran_id' => [
                 'type'       => 'INT',
             ],
-            'kode_ik' => [
+            'kode_indikator_kinerja' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
-            'ket_fakultas' => [
+            'keterangan' => [
                 'type'       => 'TEXT',
                 'null'      => true
             ],
-            'ket_jurusan' => [
-                'type'       => 'TEXT',
-                'null'      => true
-            ],
-            'satuan_fakultas' => [
+            'satuan_id' => [
                 'type'       => 'INT',
-                'null'      => true
-            ],
-            'satuan_jurusan' => [
-                'type'       => 'INT',
-                'null'      => true
             ],
             'tahun' => [
                 'type'       => 'INT'
             ],
-            'target' => [
-                'type'       => 'INT'
-            ],
-            'cascading_jurusan' => [
+            'cascading' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
                 'null'      => true
-            ],
-            'cascading_fakultas' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
-                'null'      => true
-            ],
-            'is_jurusan' => [
-                'type'       => 'INT'
-            ],
+            ]
         ]);
-        $this->forge->addKey('ik_id', true);
+        $this->forge->addKey('indikator_kinerja_id', true);
         $this->forge->addForeignKey('sasaran_id', 'sasaran', 'sasaran_id');
-        $this->forge->addForeignKey('satuan_jurusan', 'satuan', 'satuan_id');
-        $this->forge->addForeignKey('satuan_fakultas', 'satuan', 'satuan_id');
+        $this->forge->addForeignKey('satuan_id', 'satuan', 'satuan_id');
 
         $this->forge->createTable('indikator_kinerja');
     }

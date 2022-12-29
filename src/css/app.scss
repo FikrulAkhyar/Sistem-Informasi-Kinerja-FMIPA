@@ -2,11 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+// Font
+// @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
+
+// Select2
 @import "select2";
 @import "./vendor/select2.scss";
 
-// @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
 .active {
   @apply text-primary;
   font-weight: bold;
@@ -24,3 +27,14 @@
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+.table {
+  thead {
+    th {
+      @apply bg-primary
+    }
+  }
+}
+
+// Toastr JS
+@import "toastr";

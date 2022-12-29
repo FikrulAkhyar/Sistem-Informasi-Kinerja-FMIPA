@@ -4,7 +4,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<div class="lg:text-2xl text-xl font-bold">Grafik Nilai Capaian Anggaran Masing-Masing Jurusan</div>
+<div class="lg:text-2xl text-xl font-bold">Grafik Nilai Capaian Anggaran Masing-Masing Program Studi</div>
 <div class="mx-auto mt-5 mb-10">
   <div class="form-control w-full">
     <label class="label" for="filter_tahun">

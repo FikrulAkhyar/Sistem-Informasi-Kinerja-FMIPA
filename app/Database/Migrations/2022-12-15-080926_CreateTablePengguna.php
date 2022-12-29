@@ -4,12 +4,12 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateTableUsers extends Migration
+class CreateTablePengguna extends Migration
 {
     public function up()
     {
         $this->forge->addField([
-            'user_id' => [
+            'pengguna_id' => [
                 'type'       => 'INT',
                 'auto_increment' => true,
             ],
@@ -25,18 +25,22 @@ class CreateTableUsers extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
+            'level_id' => [
+                'type'       => 'INT',
+            ],
             'jurusan_id' => [
                 'type'       => 'INT',
                 'null'      => true
             ],
         ]);
-        $this->forge->addKey('user_id', true);
+        $this->forge->addKey('pengguna_id', true);
         $this->forge->addForeignKey('jurusan_id', 'jurusan', 'jurusan_id');
-        $this->forge->createTable('users');
+        $this->forge->addForeignKey('level_id', 'level', 'level_id');
+        $this->forge->createTable('pengguna');
     }
 
     public function down()
     {
-        $this->forge->dropTable('users');
+        $this->forge->dropTable('pengguna');
     }
 }

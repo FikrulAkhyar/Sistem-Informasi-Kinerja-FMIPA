@@ -4,29 +4,29 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateTableJurusan extends Migration
+class CreateTableLevel extends Migration
 {
     public function up()
     {
         $this->forge->addField([
-            'jurusan_id' => [
+            'level_id' => [
                 'type'       => 'INT',
                 'auto_increment' => true,
             ],
-            'nama_jurusan' => [
+            'nama_level' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
         ]);
-        $this->forge->addKey('jurusan_id', true);
-        $this->forge->createTable('jurusan');
+        $this->forge->addKey('level_id', true);
+        $this->forge->createTable('level');
 
         $seeder = \Config\Database::seeder();
-        $seeder->call('JurusanSeeder');
+        $seeder->call('LevelSeeder');
     }
 
     public function down()
     {
-        $this->forge->dropTable('jurusan');
+        $this->forge->dropTable('level');
     }
 }

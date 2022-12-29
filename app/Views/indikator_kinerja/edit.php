@@ -6,96 +6,98 @@
 <div class="lg:text-2xl text-xl font-bold">Edit Indikator Kinerja IK-1.01</div>
 
 <div class="mx-auto mt-5 mb-10">
-    <form action="<?= base_url('indikatorKinerja/edit') ?>" id="form-add-indikator" method="POST" show-validation>
+    <form action="<?= base_url('indikatorkinerja/update/' . $id) ?>" id="form-update-indikator" method="POST" show-validation>
         <div class="form-control">
             <label for="sasaran" class="label">
                 <span class="label-text label-required">Sasaran</span>
             </label>
-            <select type="text" name="sasaran" id="sasaran" class="select select-bordered" style="width: 100%;">
-                <option disabled selected>Pilih Sasaran</option>
+            <select type="text" name="sasaran" id="sasaran" data-placeholder="Pilih Sasaran" class="select select-bordered" style="width: 100%;">
+                <option></option>
                 <?php foreach ($sasaran as $s) : ?>
                     <option value="<?= $s['sasaran_id'] ?>" <?= $s['sasaran_id'] == $ik['sasaran_id'] ? 'selected' : '' ?>><?= $s['keterangan'] ?></option>
                 <?php endforeach ?>
             </select>
         </div>
 
-        <div class="form-control">
-            <label for="target" class="label">
-                <span class="label-text label-required">Target</span>
-            </label>
-            <input type="number" name="target" id="target" class="input input-bordered" min="0" value="<?= $ik['target'] ?>">
-        </div>
-
-        <div class="form-control my-3 text-center">
-            <label class="label cursor-pointer justify-start">
-                <input type="checkbox" class="checkbox" name="is_jurusan" id="is_jurusan" <?= $ik['is_jurusan'] == 1 ? 'checked' : '' ?> />
-                <span class="label-text ml-3">Gunakan IK untuk jurusan</span>
-            </label>
-        </div>
-
         <div class="grid grid-cols-12 gap-3">
-            <div class="lg:col-span-6 col-span-12 is-fakultas">
+            <div class="lg:col-span-6 col-span-12">
                 <div class="form-control">
-                    <label for="ket_fakultas" class="label">
-                        <span class="label-text label-required">Keterangan (Fakultas)</span>
+                    <label for="satuan" class="label">
+                        <span class="label-text label-required">Satuan</span>
                     </label>
-                    <textarea class="textarea textarea-bordered" name="ket_fakultas" id="ket_fakultas" placeholder="Masukkan keterangan IK untuk fakultas"><?= $ik['ket_fakultas'] ?></textarea>
-                </div>
-
-                <div class="form-control">
-                    <label for="satuan_fakultas" class="label">
-                        <span class="label-text label-required">Satuan (Fakultas)</span>
-                    </label>
-                    <select type="text" name="satuan_fakultas" id="satuan_fakultas" class="select select-bordered" style="width: 100%;">
-                        <option disabled selected>Pilih Satuan</option>
+                    <select type="text" name="satuan" id="satuan" data-placeholder="Pilih Satuan" class="select select-bordered" style="width: 100%;">
+                        <option></option>
                         <?php foreach ($satuan as $st) : ?>
-                            <option value="<?= $st['satuan_id'] ?>" <?= $st['satuan_id'] == $ik['satuan_fakultas'] ? 'selected' : '' ?>><?= $st['nama_satuan'] ?></option>
-                        <?php endforeach ?>
-                    </select>
-                </div>
-
-                <div class="form-control">
-                    <label for="cascading_fakultas" class="label">
-                        <span class="label-text label-required">Cascading (Fakultas)</span>
-                    </label>
-                    <select name="cascading_fakultas" id="cascading_fakultas" multiple="multiple" data-placeholder="Pilih Cascading" class="select select-bordered" style="width: 100%;">
-                        <?php foreach ($cascading as $c) : ?>
-                            <option value="<?= $c['cascading_id'] ?>" <?= in_array($c['cascading_id'], $ik['cascading_fakultas']) ? 'selected' : '' ?>><?= $c['nama_cascading'] ?></option>
+                            <option value="<?= $st['satuan_id'] ?>" <?= $st['satuan_id'] == $ik['satuan_id'] ? 'selected' : '' ?>><?= $st['nama_satuan'] ?></option>
                         <?php endforeach ?>
                     </select>
                 </div>
             </div>
-            <div class="lg:col-span-6 col-span-12 is-jurusan <?= $ik['is_jurusan'] == 1 ? '' : 'hidden' ?>">
-                <div class="form-control">
-                    <label for="ket_jurusan" class="label">
-                        <span class="label-text label-required">Keterangan (Jurusan)</span>
-                    </label>
-                    <textarea class="textarea textarea-bordered" name="ket_jurusan" id="ket_jurusan" placeholder="Masukkan keterangan IK untuk jurusan"><?= $ik['ket_jurusan'] ?></textarea>
-                </div>
-
-                <div class="form-control">
-                    <label for="satuan_jurusan" class="label">
-                        <span class="label-text label-required">Satuan (Jurusan)</span>
-                    </label>
-                    <select type="text" name="satuan_jurusan" id="satuan_jurusan" class="select select-bordered" style="width: 100%;">
-                        <option disabled selected>Pilih Satuan</option>
-                        <?php foreach ($satuan as $st) : ?>
-                            <option value="<?= $st['satuan_id'] ?>" <?= $st['satuan_id'] == $ik['satuan_jurusan'] ? 'selected' : '' ?>><?= $st['nama_satuan'] ?></option>
-                        <?php endforeach ?>
-                    </select>
-                </div>
-
-                <div class="form-control">
-                    <label for="cascading_jurusan" class="label">
-                        <span class="label-text label-required">Cascading (Jurusan)</span>
-                    </label>
-                    <select name="cascading_jurusan" id="cascading_jurusan" multiple="multiple" data-placeholder="Pilih Cascading" class="select select-bordered" style="width: 100%;">
-                        <?php foreach ($cascading as $c) : ?>
-                            <option value="<?= $c['cascading_id'] ?>" <?= in_array($c['cascading_id'], $ik['cascading_jurusan']) ? 'selected' : '' ?>><?= $c['nama_cascading'] ?></option>
-                        <?php endforeach ?>
-                    </select>
+            <div class="lg:col-span-6 col-span-12">
+                <div class="grid grid-cols-12">
+                    <div class="lg:col-span-3 col-span-12">
+                        <div class="form-control">
+                            <label for="target_tw1" class="label">
+                                <span class="label-text label-required">Target TW1</span>
+                            </label>
+                            <input type="number" name="target_tw1" id="target_tw1" class="input input-bordered lg:w-32 w-full" min="0" step="0.1" value="<?= $ik['target']['triwulan_satu'] ?>">
+                        </div>
+                    </div>
+                    <div class="lg:col-span-3 col-span-12">
+                        <div class="form-control">
+                            <label for="target_tw2" class="label">
+                                <span class="label-text label-required">Target TW2</span>
+                            </label>
+                            <input type="number" name="target_tw2" id="target_tw2" class="input input-bordered lg:w-32 w-full" min="0" step="0.1" value="<?= $ik['target']['triwulan_dua'] ?>">
+                        </div>
+                    </div>
+                    <div class="lg:col-span-3 col-span-12">
+                        <div class="form-control">
+                            <label for="target_tw3" class="label">
+                                <span class="label-text label-required">Target TW3</span>
+                            </label>
+                        </div>
+                        <input type="number" name="target_tw3" id="target_tw3" class="input input-bordered lg:w-32 w-full" min="0" step="0.1" value="<?= $ik['target']['triwulan_tiga'] ?>">
+                    </div>
+                    <div class="lg:col-span-3 col-span-12">
+                        <div class="form-control">
+                            <label for="target_tw4" class="label">
+                                <span class="label-text label-required">Target TW4</span>
+                            </label>
+                        </div>
+                        <input type="number" name="target_tw4" id="target_tw4" class="input input-bordered lg:w-32 w-full" min="0" step="0.1" value="<?= $ik['target']['triwulan_empat'] ?>">
+                    </div>
                 </div>
             </div>
+        </div>
+
+        <div class="form-control">
+            <label for="keterangan" class="label">
+                <span class="label-text label-required">Keterangan</span>
+            </label>
+            <textarea class="textarea textarea-bordered" name="keterangan" id="keterangan" placeholder="Masukkan keterangan IK untuk fakultas"><?= $ik['keterangan'] ?></textarea>
+        </div>
+
+        <div class="form-control">
+            <label for="uraian" class="label">
+                <span class="label-text label-required">Uraian</span>
+            </label>
+            <select name="uraian[]" id="uraian" multiple="multiple" data-placeholder="Masukkan uraian" class="select select-bordered" style="width: 100%;">
+                <?php foreach ($uraian as $u) : ?>
+                    <option selected><?= $u['uraian'] ?></option>
+                <?php endforeach ?>
+            </select>
+        </div>
+
+        <div class="form-control">
+            <label for="cascading" class="label">
+                <span class="label-text label-required">Cascading</span>
+            </label>
+            <select name="cascading[]" id="cascading" multiple="multiple" data-placeholder="Pilih Cascading" class="select select-bordered" style="width: 100%;">
+                <?php foreach ($cascading as $c) : ?>
+                    <option value="<?= $c['cascading_id'] ?>" <?= in_array($c['cascading_id'], $ik['cascading']) ? 'selected' : '' ?>><?= $c['nama_cascading'] ?></option>
+                <?php endforeach ?>
+            </select>
         </div>
 
         <button type="submit" class="btn btn-primary btn-block my-3">EDIT</button>
@@ -104,14 +106,26 @@
 </div>
 
 <script>
-    $('#sasaran, #satuan_fakultas, #cascading_fakultas, #satuan_jurusan, #cascading_jurusan').select2()
+    $('#sasaran, #satuan, #cascading').select2()
+    $('#uraian').select2({
+        tags: true,
+        language: {
+            noResults: function(params) {
+                return "Ketik uraian..";
+            }
+        }
+    })
 
-    $('#is_jurusan').on('click', function() {
-        if ($('#is_jurusan:checked').is(':checked')) {
-            // console.log('checked')
-            $('.is-jurusan').removeClass('hidden')
-        } else {
-            $('.is-jurusan').addClass('hidden')
+    initFormAjax('#form-update-indikator', {
+        success: function(response) {
+            toastr.success(response.message)
+            setTimeout(function() {
+                location.href = `${BASE_URL}/indikatorkinerja/`
+            }, 1000);
+        },
+        error: function(xhr) {
+            const response = xhr.responseJSON
+            toastr.error(response.message)
         }
     })
 </script>

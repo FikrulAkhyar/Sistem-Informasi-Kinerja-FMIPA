@@ -4,32 +4,33 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateTableCascading extends Migration
+class CreateTableJurusan extends Migration
 {
     public function up()
     {
         $this->forge->addField([
-            'cascading_id' => [
+            'jurusan_id' => [
                 'type'       => 'INT',
                 'auto_increment' => true,
             ],
-            'nama_cascading' => [
+            'nama_jurusan' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
-            'is_jurusan' => [
-                'type'       => 'TINYINT',
-            ],
+            'fakultas' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+            ]
         ]);
-        $this->forge->addKey('cascading_id', true);
-        $this->forge->createTable('cascading');
+        $this->forge->addKey('jurusan_id', true);
+        $this->forge->createTable('jurusan');
 
         $seeder = \Config\Database::seeder();
-        $seeder->call('CascadingSeeder');
+        $seeder->call('JurusanSeeder');
     }
 
     public function down()
     {
-        $this->forge->dropTable('cascading');
+        $this->forge->dropTable('jurusan');
     }
 }

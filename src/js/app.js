@@ -45,6 +45,15 @@ import tippy from 'tippy.js';
 import 'tippy.js/dist/tippy.css';
 window.tippy = tippy
 
+// Toastr JS
+import toastr from 'toastr'
+toastr.options = {
+  "positionClass": "toast-bottom-right",
+  "closeButton": true,
+  'progressBar': true
+}
+window.toastr = toastr
+
 // Helper
 import {
   initFormAjax

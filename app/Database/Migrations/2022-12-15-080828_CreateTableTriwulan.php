@@ -4,32 +4,32 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateTableCascading extends Migration
+class CreateTableTriwulan extends Migration
 {
     public function up()
     {
         $this->forge->addField([
-            'cascading_id' => [
+            'triwulan_id' => [
                 'type'       => 'INT',
                 'auto_increment' => true,
             ],
-            'nama_cascading' => [
+            'nama_triwulan' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
-            'is_jurusan' => [
-                'type'       => 'TINYINT',
+            'keterangan' => [
+                'type'       => 'TEXT',
             ],
         ]);
-        $this->forge->addKey('cascading_id', true);
-        $this->forge->createTable('cascading');
+        $this->forge->addKey('triwulan_id', true);
+        $this->forge->createTable('triwulan');
 
         $seeder = \Config\Database::seeder();
-        $seeder->call('CascadingSeeder');
+        $seeder->call('TriwulanSeeder');
     }
 
     public function down()
     {
-        $this->forge->dropTable('cascading');
+        $this->forge->dropTable('triwulan');
     }
 }
