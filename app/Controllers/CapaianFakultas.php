@@ -18,9 +18,7 @@ class CapaianFakultas extends BaseController
     public function index()
     {
         $data['tahun'] = $this->db->table('indikator_kinerja')
-            ->select('
-                tahun
-            ')
+            ->select('tahun')
             ->groupBy('tahun')
             ->orderBy('tahun', 'desc')
             ->get()->getResultArray();
@@ -101,13 +99,16 @@ class CapaianFakultas extends BaseController
 
         $data['capaian'] = $this->db->table('capaian_fakultas c')
             ->join('indikator_kinerja ik', 'ik.indikator_kinerja_id = c.indikator_kinerja_id')
+            ->join('triwulan t', 't.triwulan_id = c.triwulan_id')
             ->select('
                 ik.kode_indikator_kinerja,
+                ik.tahun,
                 c.indikator_kinerja_id,
                 c.uraian,
                 c.capaian,
                 c.pembagi,
                 c.hasil,
+                t.nama_triwulan
             ')
             ->where([
                 'c.indikator_kinerja_id' => $capaian['indikator_kinerja_id'],
@@ -116,6 +117,8 @@ class CapaianFakultas extends BaseController
             ->get()->getResultArray();
 
         $data['kode'] = $data['capaian'][0]['kode_indikator_kinerja'];
+        $data['tahun'] = $data['capaian'][0]['tahun'];
+        $data['nama_triwulan'] = $data['capaian'][0]['nama_triwulan'];
         $data['jumlah'] = 0;
         for ($i = 0; $i < count($data['capaian']); $i++) {
             $data['jumlah'] += $data['capaian'][$i]['hasil'];
@@ -129,7 +132,7 @@ class CapaianFakultas extends BaseController
     public function isi_capaian($id)
     {
         $capaian = $this->db->table('capaian_fakultas')->where('capaian_fakultas_id', $id)->get()->getRowArray();
-
+        $data['id'] = $id;
         $data['ik'] = $this->db->table('indikator_kinerja ik')
             ->join('target_fakultas t', 't.indikator_kinerja_id = ik.indikator_kinerja_id')
             ->join('capaian_fakultas c', 'c.indikator_kinerja_id = ik.indikator_kinerja_id')
@@ -140,6 +143,7 @@ class CapaianFakultas extends BaseController
             $data['ik'] = $data['ik']->select('
                 ik.indikator_kinerja_id,
                 ik.kode_indikator_kinerja,
+                ik.tahun,
                 ik.keterangan,
                 s.keterangan as sasaran,
                 tr.nama_triwulan,
@@ -149,6 +153,7 @@ class CapaianFakultas extends BaseController
             $data['ik'] = $data['ik']->select('
                 ik.indikator_kinerja_id,
                 ik.kode_indikator_kinerja,
+                ik.tahun,
                 ik.keterangan,
                 s.keterangan as sasaran,
                 tr.nama_triwulan,
@@ -159,6 +164,7 @@ class CapaianFakultas extends BaseController
             $data['ik'] = $data['ik']->select('
                 ik.indikator_kinerja_id,
                 ik.kode_indikator_kinerja,
+                ik.tahun,
                 ik.keterangan,
                 s.keterangan as sasaran,
                 tr.nama_triwulan,
@@ -169,6 +175,7 @@ class CapaianFakultas extends BaseController
             $data['ik'] = $data['ik']->select('
                 ik.indikator_kinerja_id,
                 ik.kode_indikator_kinerja,
+                ik.tahun,
                 ik.keterangan,
                 s.keterangan as sasaran,
                 tr.nama_triwulan,
@@ -199,5 +206,63 @@ class CapaianFakultas extends BaseController
 
         // dd($data);
         return view('capaian_fakultas/isi_capaian', $data);
+    }
+
+    public function store_capaian($id)
+    {
+        $capaian = $this->db->table('capaian_fakultas c')
+            ->join('indikator_kinerja ik', 'ik.indikator_kinerja_id = c.indikator_kinerja_id')
+            ->select('
+                c.indikator_kinerja_id,
+                c.triwulan_id,
+                ik.kode_indikator_kinerja,
+                ik.tahun,
+            ')
+            ->where('c.capaian_fakultas_id', $id)
+            ->get()->getRowArray();
+
+        $uraian = array_map(function ($value) {
+            return $value['uraian'];
+        }, $this->db->table('capaian_fakultas')
+            ->select('uraian')
+            ->where('indikator_kinerja_id', $capaian['indikator_kinerja_id'])
+            ->groupBy('uraian')
+            ->get()->getResultArray());
+
+        if ($this->request->getFile('file')->getName() != "") {
+            $uploadDir = $_SERVER["DOCUMENT_ROOT"] . '/dokumen/';
+
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+
+            $nama_dokumen = $capaian['kode_indikator_kinerja'] . '_' . $capaian['tahun'] . '_tw' . $capaian['triwulan_id'] . '.' . $this->request->getFile('file')->getExtension();
+            file_put_contents($uploadDir . $nama_dokumen, file_get_contents($this->request->getFile('file')), FILE_USE_INCLUDE_PATH);
+        }
+
+        for ($i = 0; $i < count($uraian); $i++) {
+            $data = [
+                'uraian' => $uraian[$i],
+                'capaian' => $this->request->getPost('capaian')[$uraian[$i]],
+                'pembagi' => $this->request->getPost('pembagi')[$uraian[$i]],
+                'hasil' => $this->request->getPost('hasil')[$uraian[$i]],
+            ];
+
+            if ($this->request->getFile('file')->getName() != "") {
+                $data['file'] = $nama_dokumen;
+            }
+
+            $this->db->table('capaian_fakultas')->where([
+                'indikator_kinerja_id' => $capaian['indikator_kinerja_id'],
+                'triwulan_id' => $capaian['triwulan_id'],
+                'uraian' => $uraian[$i]
+            ])->update($data);
+        }
+
+        $response = [
+            'message' => 'Berhasil mengisi capaian indikator kinerja'
+        ];
+
+        return $this->respond($response);
     }
 }

@@ -7,7 +7,7 @@
 <div class="lg:text-2xl text-xl font-bold">Gunakan IK-1.01 Untuk Jurusan</div>
 
 <div class="mx-auto mt-5 mb-10">
-    <form action="<?= base_url('indikatorkinerja/edit_jurusan/' . $id) ?>" id="form-edit-indikator-jurusan" method="POST" show-validation>
+    <form action="<?= base_url('indikatorkinerja/update_jurusan/' . $id) ?>" id="form-edit-indikator-jurusan" method="POST" show-validation>
 
         <div class="form-control">
             <label for="keterangan" class="label">
@@ -176,6 +176,16 @@
                                 tw3: response.data.triwulan_tiga,
                                 tw4: response.data.triwulan_empat,
                             })
+
+                            $('#tw1').attr('name', $('#tw1').attr('name') + `[${cascading_id}]`)
+                            $('#tw2').attr('name', $('#tw2').attr('name') + `[${cascading_id}]`)
+                            $('#tw3').attr('name', $('#tw3').attr('name') + `[${cascading_id}]`)
+                            $('#tw4').attr('name', $('#tw4').attr('name') + `[${cascading_id}]`)
+
+                            $('#tw1').attr('id', `tw1_${jurusan_id}_${cascading_id}`)
+                            $('#tw2').attr('id', `tw2_${jurusan_id}_${cascading_id}`)
+                            $('#tw3').attr('id', `tw3_${jurusan_id}_${cascading_id}`)
+                            $('#tw4').attr('id', `tw4_${jurusan_id}_${cascading_id}`)
                         },
                     });
                 })

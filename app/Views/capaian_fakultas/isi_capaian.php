@@ -3,10 +3,10 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<div class="lg:text-2xl text-xl font-bold">Isi Capaian <?= $ik['kode_indikator_kinerja'] ?> <?= $ik['nama_triwulan'] ?> ( Target <?= $ik['target'] ?> )</div>
+<div class="lg:text-2xl text-xl font-bold">Isi Capaian <?= $ik['kode_indikator_kinerja'] ?> <?= $ik['tahun'] ?> <?= $ik['nama_triwulan'] ?> ( Target <?= $ik['target'] ?> )</div>
 
 <div class="mx-auto mt-5 mb-10">
-    <form action="<?= base_url('indikatorkinerja/store') ?>" id="form-add-indikator" method="POST" show-validation>
+    <form action="<?= base_url('capaianfakultas/store_capaian/' . $id) ?>" enctype="multipart/form-data" id="form-isi-capaian-fakultas" method="POST" show-validation>
         <div class="alert my-2">
             <div class="flex-1">
                 <div>
@@ -32,7 +32,7 @@
             <label class="label">
                 <span class="label-text">Upload Dokumen Capaian</span>
             </label>
-            <input type="file" class="file-input file-input-bordered file-input-primary w-full" />
+            <input type="file" name="file" class="file-input file-input-bordered file-input-primary w-full" />
         </div>
 
         <table id="table" class="table w-full table-bordered" style="width: 100%;">
@@ -49,13 +49,13 @@
                     <tr>
                         <td><?= $capaian[$i]['uraian'] ?></td>
                         <td class="text-center">
-                            <input type="number" name="capaian[]" id="capaian<?= $i ?>" class="input input-bordered lg:w-32 w-full" min="0" step="0.1" value="<?= $capaian[$i]['capaian'] ?>">
+                            <input type="number" name="capaian[<?= $capaian[$i]['uraian'] ?>]" id="capaian<?= $i ?>" class="input input-bordered lg:w-32 w-full" min="0" step="0.1" value="<?= $capaian[$i]['capaian'] ?>">
                         </td>
                         <td class="text-center">
-                            <input type="number" name="pembagi[]" id="pembagi<?= $i ?>" class="input input-bordered lg:w-32 w-full" min="0" step="0.1" value="<?= $capaian[$i]['pembagi'] ?>">
+                            <input type="number" name="pembagi[<?= $capaian[$i]['uraian'] ?>]" id="pembagi<?= $i ?>" class="input input-bordered lg:w-32 w-full" min="0" step="0.1" value="<?= $capaian[$i]['pembagi'] ?>">
                         </td>
                         <td class="text-center">
-                            <input type="text" name="hasil[]" id="hasil<?= $i ?>" class="input input-bordered lg:w-32 w-full" value="<?= $capaian[$i]['hasil'] ?>" readonly>
+                            <input type="text" name="hasil[<?= $capaian[$i]['uraian'] ?>]" id="hasil<?= $i ?>" class="input input-bordered lg:w-32 w-full" value="<?= $capaian[$i]['hasil'] ?>" readonly>
                         </td>
                     </tr>
                 <?php endfor ?>
@@ -69,7 +69,7 @@
 </div>
 
 <script>
-    let capaian = '<?= json_encode($capaian) ?>'
+    let capaian = <?= json_encode($capaian) ?>
 
     for (let i = 0; i < capaian.length; i++) {
         $(`#capaian${i}`).on('input', function() {
@@ -82,18 +82,18 @@
         })
     }
 
-    // initFormAjax('#form-add-indikator', {
-    //     success: function(response) {
-    //         console.log(response.message)
-    //         toastr.success(response.message)
-    //         setTimeout(function() {
-    //             location.href = `${BASE_URL}/indikatorkinerja/`
-    //         }, 1000);
-    //     },
-    //     error: function(xhr) {
-    //         const response = xhr.responseJSON
-    //         toastr.error(response.message)
-    //     }
-    // })
+    initFormAjax('#form-isi-capaian-fakultas', {
+        success: function(response) {
+            console.log(response.message)
+            toastr.success(response.message)
+            setTimeout(function() {
+                location.href = `${BASE_URL}/capaianfakultas/`
+            }, 1000);
+        },
+        error: function(xhr) {
+            const response = xhr.responseJSON
+            toastr.error(response.message)
+        }
+    })
 </script>
 <?= $this->endSection() ?>

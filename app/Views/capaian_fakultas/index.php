@@ -12,7 +12,6 @@
                     <span class="label-text">Tahun Anggaran</span>
                 </label>
                 <select id="filter_tahun" class="select select-bordered" data-placeholder="Pilih Tahun Anggaran" style="width: 100%;">
-                    <option></option>
                     <?php foreach ($tahun as $t) : ?>
                         <option value="<?= $t['tahun'] ?>" <?= $t['tahun'] == date('Y') ? 'selected' : '' ?>><?= $t['tahun'] ?></option>
                     <?php endforeach ?>
@@ -25,7 +24,6 @@
                     <span class="label-text">Triwulan</span>
                 </label>
                 <select id="filter_triwulan" class="select select-bordered" data-placeholder="Pilih Triwulan" style="width: 100%;">
-                    <option></option>
                     <?php foreach ($triwulan as $t) : ?>
                         <option value="<?= $t['triwulan_id'] ?>" <?= in_array(date('F'), $t['bulan']) ? 'selected' : '' ?>><?= $t['nama_triwulan'] ?></option>
                     <?php endforeach ?>
@@ -49,48 +47,6 @@
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        <!-- <tr>
-                            <td class="text-center">IKU-1.01</td>
-                            <td class="text-center">Persentase (%)</td>
-                            <td class="text-center">60</td>
-                            <td class="text-center">65.09</td>
-                            <td>
-                                <div class="flex justify-center gap-2">
-                                    <button data-reference="" class="btn btn-info btn-sm btn-detail-modal text-white" data-tippy-content="Detail Capaian">
-                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
-                                            <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
-                                        </svg>
-                                    </button>
-                                    <button data-reference="" class="btn btn-warning btn-sm btn-edit-modal text-white" data-tippy-content="Isi Capaian">
-                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">IKU-1.02</td>
-                            <td class="text-center">Persentase (%)</td>
-                            <td class="text-center">10</td>
-                            <td class="text-center">1.4</td>
-                            <td>
-                                <div class="flex justify-center gap-2">
-                                    <button data-reference="" class="btn btn-info btn-sm btn-detail-modal text-white" data-tippy-content="Detail Capaian">
-                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
-                                            <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
-                                        </svg>
-                                    </button>
-                                    <button data-reference="" class="btn btn-warning btn-sm btn-edit-modal text-white" data-tippy-content="Isi Capaian">
-                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr> -->
                     </tbody>
                 </table>
             </div>
@@ -100,12 +56,6 @@
 
 <script>
     $('#filter_tahun, #filter_triwulan').select2()
-
-    // const table = $('#table').DataTable({
-    //     searching: false,
-    //     paging: false,
-    //     ordering: false,
-    // })
 
     const table = $('#table').DataTable({
         processing: true,
@@ -135,7 +85,7 @@
                 searchable: false,
                 orderable: false,
                 render: function(data) {
-                    return `<span class="truncate overflow-ellipsis w-3/5">${data}</span>`
+                    return `<span class="truncate overflow-ellipsis w-3/5">${parseFloat(data).toFixed(2)}</span>`
                 }
             },
             {
@@ -143,7 +93,7 @@
                 searchable: false,
                 orderable: false,
                 render: function(data) {
-                    return `<span class="truncate overflow-ellipsis w-3/5">${data}</span>`
+                    return `<span class="truncate overflow-ellipsis w-3/5">${parseFloat(data).toFixed(2)}</span>`
                 }
             },
             {
@@ -152,7 +102,7 @@
                 orderable: false,
                 width: '25%',
                 render: function(data, _, row) {
-                    let berkas = row.file != null ? `<button data-reference="${data}" class="btn btn-error btn-sm btn-unduh-modal text-white" data-tippy-content="Unduh Berkas Capaian">
+                    let berkas = row.file != null ? `<button data-reference="${row.file}" class="btn btn-error btn-sm btn-unduh-dokumen text-white" data-tippy-content="Unduh Berkas Capaian">
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"></path>
                                 </svg>
@@ -192,11 +142,18 @@
         table.ajax.url(`${BASE_URL}/capaianfakultas/datatable?tahun=${$('#filter_tahun').val()}&triwulan=${$('#filter_triwulan').val()}`).load()
     })
 
+    $(document).on('click', '.btn-unduh-dokumen', function() {
+        const ref = $(this).data('reference')
+
+        location.href = `${BASE_URL}/dokumen/${ref}`
+    })
+
     $(document).on('click', '.btn-edit-modal', function() {
         const ref = $(this).data('reference')
 
         location.href = `${BASE_URL}/capaianfakultas/isi_capaian/${ref}`
     })
+
     $(document).on('click', '.btn-detail-modal', function() {
         const ref = $(this).data('reference')
         $.ajax({

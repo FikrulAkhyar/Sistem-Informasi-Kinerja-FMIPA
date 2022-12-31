@@ -1,5 +1,5 @@
 <label for="modal-global" class="btn btn-sm btn-circle text-white absolute right-2 top-2">✕</label>
-<h2 class="font-bold text-xl lg:text-2xl my-4">Detail <?= $kode ?></h2>
+<h2 class="font-bold text-xl lg:text-2xl my-4">Capaian <?= $kode ?> <?= $tahun ?> <?= $nama_triwulan ?></h2>
 <div class="overflow-x-auto">
     <table id="table-detail" class="table w-full" style="width: 100%;">
         <thead>

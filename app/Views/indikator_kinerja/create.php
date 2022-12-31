@@ -54,7 +54,7 @@
                             <label for="target_tw1" class="label">
                                 <span class="label-text label-required">Target TW1</span>
                             </label>
-                            <input type="number" name="target_tw1" id="target_tw1" class="input input-bordered lg:w-32 w-full" min="0" step="0.1" value="0">
+                            <input type="number" name="target_tw1" id="target_tw1" class="input input-bordered lg:w-32 w-full" min="0" step="0.01" value="0">
                         </div>
                     </div>
                     <div class="lg:col-span-3 col-span-12">
@@ -62,7 +62,7 @@
                             <label for="target_tw2" class="label">
                                 <span class="label-text label-required">Target TW2</span>
                             </label>
-                            <input type="number" name="target_tw2" id="target_tw2" class="input input-bordered lg:w-32 w-full" min="0" step="0.1" value="0">
+                            <input type="number" name="target_tw2" id="target_tw2" class="input input-bordered lg:w-32 w-full" min="0" step="0.01" value="0">
                         </div>
                     </div>
                     <div class="lg:col-span-3 col-span-12">
@@ -71,7 +71,7 @@
                                 <span class="label-text label-required">Target TW3</span>
                             </label>
                         </div>
-                        <input type="number" name="target_tw3" id="target_tw3" class="input input-bordered lg:w-32 w-full" min="0" step="0.1" value="0">
+                        <input type="number" name="target_tw3" id="target_tw3" class="input input-bordered lg:w-32 w-full" min="0" step="0.01" value="0">
                     </div>
                     <div class="lg:col-span-3 col-span-12">
                         <div class="form-control">
@@ -79,7 +79,7 @@
                                 <span class="label-text label-required">Target TW4</span>
                             </label>
                         </div>
-                        <input type="number" name="target_tw4" id="target_tw4" class="input input-bordered lg:w-32 w-full" min="0" step="0.1" value="0">
+                        <input type="number" name="target_tw4" id="target_tw4" class="input input-bordered lg:w-32 w-full" min="0" step="0.01" value="0">
                     </div>
                 </div>
             </div>

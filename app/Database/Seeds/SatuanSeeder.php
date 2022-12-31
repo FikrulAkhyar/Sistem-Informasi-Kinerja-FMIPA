@@ -14,7 +14,7 @@ class SatuanSeeder extends Seeder
         $builder->insertBatch([
             [
                 'satuan_id' => '1',
-                'nama_satuan' => 'Persentase (%)',
+                'nama_satuan' => '%',
             ],
             [
                 'satuan_id' => '2',

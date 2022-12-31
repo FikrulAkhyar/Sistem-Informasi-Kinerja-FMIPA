@@ -156,15 +156,21 @@
         table.ajax.url(`${BASE_URL}/capaianjurusan/datatable?tahun=${$('#filter_tahun').val()}&jurusan=${$('#filter_jurusan').val()}&triwulan=${$('#filter_triwulan').val()}`).load()
     })
 
-    $(document).on('click', '.btn-edit-modal', function() {
+    $(document).on('click', '.btn-detail-modal', function() {
         const ref = $(this).data('reference')
         $.ajax({
-            url: `${BASE_URL}/capaianjurusan/modal_edit/${ref}`,
+            url: `${BASE_URL}/capaianjurusan/modal_detail/${ref}`,
             success: function(response) {
                 $('#modal-global-container.modal .modal-box').html(response.html)
                 $('#modal-global').prop('checked', true)
             }
         })
+    })
+
+    $(document).on('click', '.btn-edit-modal', function() {
+        const ref = $(this).data('reference')
+
+        location.href = `${BASE_URL}/capaianjurusan/isi_capaian/${ref}`
     })
 
     initFormAjax('#form-isi-capaian', {

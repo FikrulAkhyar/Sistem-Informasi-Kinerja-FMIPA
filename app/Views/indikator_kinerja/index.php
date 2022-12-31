@@ -18,7 +18,7 @@
 
     <div class="my-3">
         <div class="text-end my-3">
-            <button class="btn btn-info btn-unduh-modal my-2 lg:w-1/5 w-full">Unduh Perjanjian Kinerja</button>
+            <button class="btn btn-info btn-unduh-pk-modal my-2 lg:w-1/5 w-full">Unduh Perjanjian Kinerja</button>
             <button class="btn btn-success btn-tahun-baru my-2 lg:w-1/5 w-full">Tambah Tahun Baru</button>
             <button class="btn btn-primary btn-tambah lg:w-1/5 w-full">Tambah Indikator</button>
         </div>
@@ -135,6 +135,18 @@
         e.preventDefault()
 
         location.href = `${BASE_URL}/indikatorkinerja/create`
+    })
+
+    $('.btn-unduh-pk-modal').on('click', function(e) {
+        e.preventDefault()
+
+        $.ajax({
+            url: `${BASE_URL}/indikatorkinerja/modal_pk/`,
+            success: function(response) {
+                $('#modal-global-container.modal .modal-box').html(response.html)
+                $('#modal-global').prop('checked', true)
+            }
+        })
     })
 
 

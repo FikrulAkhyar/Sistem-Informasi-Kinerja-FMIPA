@@ -5,6 +5,7 @@ namespace App\Controllers;
 use CodeIgniter\API\ResponseTrait;
 use \Config\Database;
 use Hermawan\DataTables\DataTable;
+use \Mpdf\Mpdf;
 
 class IndikatorKinerja extends BaseController
 {
@@ -19,9 +20,7 @@ class IndikatorKinerja extends BaseController
     public function index()
     {
         $data['tahun'] = $this->db->table('indikator_kinerja')
-            ->select('
-                tahun
-            ')
+            ->select('tahun')
             ->groupBy('tahun')
             ->orderBy('tahun', 'desc')
             ->get()->getResultArray();
@@ -542,5 +541,265 @@ class IndikatorKinerja extends BaseController
         ];
 
         return $this->respond($response);
+    }
+
+    public function update_jurusan($id)
+    {
+        $post_data = $this->request->getPost();
+
+        $uraian = array_map(function ($value) {
+            return $value['uraian'];
+        }, $this->db->table('capaian_fakultas')
+            ->select('uraian')
+            ->where('indikator_kinerja_id', $id)
+            ->groupBy('uraian')
+            ->get()->getResultArray());
+
+        $triwulan = $this->db->table('triwulan')->get()->getResultArray();
+
+        $old_jurusan = array_map(function ($value) {
+            return $value['jurusan_id'];
+        }, $this->db->table('indikator_kinerja_jurusan')
+            ->select('jurusan_id')
+            ->where('indikator_kinerja_id', $id)
+            ->get()->getResultArray());
+
+        $result_jurusan = array_merge(array_diff($post_data['jurusan'], $old_jurusan), array_diff($old_jurusan, $post_data['jurusan']));
+
+        if (count($result_jurusan) > 0) {
+            $target_itr = 0;
+            $capaian_itr = 0;
+            for ($i = 0; $i < count($result_jurusan); $i++) {
+                $jurusan_id = $result_jurusan[$i];
+
+                if (in_array($jurusan_id, $old_jurusan)) {
+                    $this->db->table('indikator_kinerja_jurusan')
+                        ->where([
+                            'indikator_kinerja_id' => $id,
+                            'jurusan_id' => $jurusan_id
+                        ])->delete();
+
+                    $this->db->table('target_jurusan')
+                        ->where([
+                            'indikator_kinerja_id' => $id,
+                            'jurusan_id' => $jurusan_id
+                        ])->delete();
+
+                    $this->db->table('capaian_jurusan')
+                        ->where([
+                            'indikator_kinerja_id' => $id,
+                            'jurusan_id' => $jurusan_id
+                        ])->delete();
+                } else {
+                    $data['indikator_kinerja_jurusan'][$i] = [
+                        'indikator_kinerja_id' => $id,
+                        'jurusan_id' => $jurusan_id,
+                        'satuan_id' => $post_data['satuan'],
+                        'keterangan' => $post_data['keterangan'],
+                    ];
+
+                    for ($j = 0; $j < count($post_data['cascading'][$jurusan_id]); $j++) {
+                        $cascading_id = $post_data['cascading'][$jurusan_id][$j];
+
+                        $data['target_jurusan'][$target_itr] = [
+                            'indikator_kinerja_id' => $id,
+                            'cascading_id' => $cascading_id,
+                            'jurusan_id' => $jurusan_id,
+                            'triwulan_satu' => $post_data['tw1'][$jurusan_id][$cascading_id],
+                            'triwulan_dua' => $post_data['tw2'][$jurusan_id][$cascading_id],
+                            'triwulan_tiga' => $post_data['tw3'][$jurusan_id][$cascading_id],
+                            'triwulan_empat' => $post_data['tw4'][$jurusan_id][$cascading_id],
+                        ];
+
+                        $target_itr++;
+
+                        for ($k = 0; $k < count($uraian); $k++) {
+                            for ($l = 0; $l < count($triwulan); $l++) {
+                                $data['capaian_jurusan'][$capaian_itr] = [
+                                    'indikator_kinerja_id' => $id,
+                                    'cascading_id' => $cascading_id,
+                                    'jurusan_id' => $jurusan_id,
+                                    'uraian' => $uraian[$k],
+                                    'capaian' => 0,
+                                    'triwulan_id' => $triwulan[$l]['triwulan_id']
+                                ];
+
+                                $capaian_itr++;
+                            }
+                        }
+                    }
+                }
+            }
+
+            $this->db->table('indikator_kinerja_jurusan')->insertBatch($data['indikator_kinerja_jurusan']);
+            $this->db->table('target_jurusan')->insertBatch($data['target_jurusan']);
+            $this->db->table('capaian_jurusan')->insertBatch($data['capaian_jurusan']);
+        } else {
+            $data['indikator_kinerja_jurusan'] = [
+                'keterangan' => $post_data['keterangan'],
+                'satuan_id' => $post_data['satuan']
+            ];
+
+            for ($i = 0; $i < count($post_data['jurusan']); $i++) {
+                $jurusan_id = $post_data['jurusan'][$i];
+                $old_cascading = array_map(function ($value) {
+                    return $value['cascading_id'];
+                }, $this->db->table('target_jurusan')
+                    ->select('cascading_id')
+                    ->where([
+                        'indikator_kinerja_id' => $id,
+                        'jurusan_id' => $post_data['jurusan'][$i]
+                    ])
+                    ->get()->getResultArray());
+
+                $result_cascading = array_merge(array_diff($post_data['cascading'][$jurusan_id], $old_cascading), array_diff($old_cascading, $post_data['cascading'][$jurusan_id]));
+
+                if ($result_cascading > 0) {
+                    for ($j = 0; $j < count($result_cascading); $j++) {
+                        $cascading_id = $result_cascading[$j];
+
+                        if (in_array($cascading_id, $old_cascading)) {
+                            $this->db->table('target_jurusan')
+                                ->where([
+                                    'indikator_kinerja_id' => $id,
+                                    'jurusan_id' => $jurusan_id,
+                                    'cascading_id' => $cascading_id
+                                ])->delete();
+
+                            $this->db->table('capaian_jurusan')
+                                ->where([
+                                    'indikator_kinerja_id' => $id,
+                                    'jurusan_id' => $jurusan_id,
+                                    'cascading_id' => $cascading_id
+                                ])->delete();
+                        } else {
+                            $data['target_jurusan'] = [
+                                'indikator_kinerja_id' => $id,
+                                'cascading_id' => $cascading_id,
+                                'jurusan_id' => $jurusan_id,
+                                'triwulan_satu' => $post_data['tw1'][$jurusan_id][$cascading_id],
+                                'triwulan_dua' => $post_data['tw2'][$jurusan_id][$cascading_id],
+                                'triwulan_tiga' => $post_data['tw3'][$jurusan_id][$cascading_id],
+                                'triwulan_empat' => $post_data['tw4'][$jurusan_id][$cascading_id],
+                            ];
+
+                            $itr = 0;
+                            for ($k = 0; $k < count($uraian); $k++) {
+                                for ($l = 0; $l < count($triwulan); $l++) {
+                                    $data['capaian_jurusan'][$itr] = [
+                                        'indikator_kinerja_id' => $id,
+                                        'cascading_id' => $cascading_id,
+                                        'jurusan_id' => $jurusan_id,
+                                        'uraian' => $uraian[$k],
+                                        'capaian' => 0,
+                                        'triwulan_id' => $triwulan[$l]['triwulan_id']
+                                    ];
+
+                                    $itr++;
+                                }
+                            }
+
+                            $this->db->table('target_jurusan')->insert($data['target_jurusan']);
+                            $this->db->table('capaian_jurusan')->insertBatch($data['capaian_jurusan']);
+                        }
+                    }
+                } else {
+                    for ($j = 0; $j < count($post_data['cascading'][$jurusan_id]); $j++) {
+                        $cascading_id = $post_data['cascading'][$jurusan_id][$j];
+
+                        $data['target_jurusan'] = [
+                            'triwulan_satu' => $post_data['tw1'][$jurusan_id][$cascading_id],
+                            'triwulan_dua' => $post_data['tw2'][$jurusan_id][$cascading_id],
+                            'triwulan_tiga' => $post_data['tw3'][$jurusan_id][$cascading_id],
+                            'triwulan_empat' => $post_data['tw4'][$jurusan_id][$cascading_id],
+                        ];
+
+                        $this->db->table('target_jurusan')->where([
+                            'indikator_kinerja_id' => $id,
+                            'cascading_id' => $cascading_id,
+                            'jurusan_id' => $jurusan_id
+                        ])->update($data['target_jurusan']);
+                    }
+                }
+            }
+
+            $this->db->table('indikator_kinerja_jurusan')->where([
+                'indikator_kinerja_id' => $id,
+            ])->update($data['indikator_kinerja_jurusan']);
+        }
+
+        $response = [
+            'message' => 'Berhasil mengubah data indikator kinerja jurusan',
+        ];
+
+        return $this->respond($response);
+    }
+
+    public function modal_pk()
+    {
+        $data['jurusan'] = $this->db->table('jurusan')->get()->getResultArray();
+        $data['tahun'] = $this->db->table('indikator_kinerja')
+            ->select('tahun')
+            ->groupBy('tahun')
+            ->orderBy('tahun', 'desc')
+            ->get()->getResultArray();
+
+        $view = \Config\Services::renderer();
+        $response['html'] = $view->setData($data)->render('indikator_kinerja/components/modal_pk');
+        return $this->respond($response, 200);
+    }
+
+    public function unduh_pk()
+    {
+        $unit_kerja = $this->request->getGet('unit');
+        $jurusan = $this->request->getGet('jurusan');
+        $tahun = $this->request->getGet('tahun');
+
+        if ($unit_kerja == 1) {
+            $data['pk'] = $this->db->table('indikator_kinerja ik')
+                ->join('sasaran s', 's.sasaran_id = ik.sasaran_id')
+                ->select('s.keterangan as sasaran, ik.sasaran_id')
+                ->where('ik.tahun', $tahun)
+                ->groupBy('ik.sasaran_id')
+                ->get()->getResultArray();
+
+            for ($i = 0; $i < count($data['pk']); $i++) {
+                $data['pk'][$i]['indikator'] = $this->db->table('indikator_kinerja ik')
+                    ->join('target_fakultas tf', 'tf.indikator_kinerja_id = ik.indikator_kinerja_id')
+                    ->join('satuan st', 'st.satuan_id = ik.satuan_id')
+                    ->select('
+                        ik.kode_indikator_kinerja,
+                        ik.keterangan as indikator_kinerja,
+                        st.nama_satuan,
+                        tf.triwulan_satu,
+                        tf.triwulan_dua,
+                        tf.triwulan_tiga,
+                        tf.triwulan_empat
+                    ')
+                    ->where([
+                        'ik.tahun' => $tahun,
+                        'ik.sasaran_id' => $data['pk'][$i]['sasaran_id']
+                    ])
+                    ->get()->getResultArray();
+            }
+        }
+
+        $data['tahun'] = $tahun;
+        if ($jurusan) {
+            $data['jurusan'] = $this->db->table('jurusan')->where('jurusan_id', $jurusan)->get()->getRowArray();
+        }
+
+        // dd($data);
+        // return view('indikator_kinerja/components/template_pk', $data);
+        $mpdf = new Mpdf(['mode' => 'utf-8', 'debug' => true, 'format' => 'A4']);
+        $mpdf->showImageErrors = true;
+
+        $view = \Config\Services::renderer();
+        $content = $view->setData($data)->render('indikator_kinerja/components/template_pk');
+        $mpdf->WriteHTML($content);
+        ob_end_clean();
+
+        $this->response->setHeader('Content-type', 'application/pdf');
+        return $mpdf->Output('PK_FMIPA' . ".pdf", 'I');
     }
 }
