@@ -22,14 +22,9 @@ class Beranda extends BaseController
             ->orderBy('tahun', 'desc')
             ->get()->getResultArray();
 
-        $data['tahunAktif'] = $data['tahun'][0]['tahun'];
-
         $data['triwulan'] = $this->db->table('triwulan')->get()->getResultArray();
         for ($i = 0; $i < count($data['triwulan']); $i++) {
             $data['triwulan'][$i]['bulan'] = explode(',', $data['triwulan'][$i]['keterangan']);
-            if (in_array(date('F'), $data['triwulan'][$i]['bulan'])) {
-                $data['triwulanAktif'] = $data['triwulan'][$i]['triwulan_id'];
-            }
         }
 
         $tahun = $this->request->getGet('tahun');
