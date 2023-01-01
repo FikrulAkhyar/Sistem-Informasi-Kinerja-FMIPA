@@ -362,6 +362,11 @@ class IndikatorKinerja extends BaseController
                 unset($data['capaian_fakultas'][$j]['capaian_fakultas_id']);
                 unset($data['capaian_fakultas'][$j]['created_at']);
                 unset($data['capaian_fakultas'][$j]['updated_at']);
+                unset($data['capaian_fakultas'][$j]['capaian']);
+                unset($data['capaian_fakultas'][$j]['pembagi']);
+                unset($data['capaian_fakultas'][$j]['hasil']);
+                unset($data['capaian_fakultas'][$j]['file']);
+                unset($data['capaian_fakultas'][$j]['updated_by']);
                 $data['capaian_fakultas'][$j]['indikator_kinerja_id'] = $insertID;
                 array_push($capaian_fakultas, $data['capaian_fakultas'][$j]);
             }
@@ -389,6 +394,13 @@ class IndikatorKinerja extends BaseController
                 for ($j = 0; $j < count($data['capaian_jurusan']); $j++) {
                     unset($data['capaian_jurusan'][$j]['indikator_kinerja_id']);
                     unset($data['capaian_jurusan'][$j]['capaian_jurusan_id']);
+                    unset($data['capaian_jurusan'][$j]['capaian']);
+                    unset($data['capaian_jurusan'][$j]['pembagi']);
+                    unset($data['capaian_jurusan'][$j]['hasil']);
+                    unset($data['capaian_jurusan'][$j]['file']);
+                    unset($data['capaian_jurusan'][$j]['created_at']);
+                    unset($data['capaian_jurusan'][$j]['updated_at']);
+                    unset($data['capaian_jurusan'][$j]['updated_by']);
                     $data['capaian_jurusan'][$j]['indikator_kinerja_id'] = $insertID;
                     array_push($capaian_jurusan, $data['capaian_jurusan'][$j]);
                 }
