@@ -73,7 +73,7 @@
         serverSide: true,
         responsive: false,
         scrollX: true,
-        ajax: `${BASE_URL}/capaianjurusan/datatable?tahun=${$('#filter_tahun').val()}&jurusan=${$('#filter_jurusan').val()}&triwulan=${$('#filter_triwulan').val()}`,
+        ajax: `${BASE_URL}/capaianJurusan/datatable?tahun=${$('#filter_tahun').val()}&jurusan=${$('#filter_jurusan').val()}&triwulan=${$('#filter_triwulan').val()}`,
         order: [
             [0, 'asc']
         ],
@@ -145,21 +145,21 @@
     });
 
     $('#filter_tahun').on('change', function() {
-        table.ajax.url(`${BASE_URL}/capaianjurusan/datatable?tahun=${$('#filter_tahun').val()}&jurusan=${$('#filter_jurusan').val()}&triwulan=${$('#filter_triwulan').val()}`).load()
+        table.ajax.url(`${BASE_URL}/capaianJurusan/datatable?tahun=${$('#filter_tahun').val()}&jurusan=${$('#filter_jurusan').val()}&triwulan=${$('#filter_triwulan').val()}`).load()
     })
 
     $('#filter_jurusan').on('change', function() {
-        table.ajax.url(`${BASE_URL}/capaianjurusan/datatable?tahun=${$('#filter_tahun').val()}&jurusan=${$('#filter_jurusan').val()}&triwulan=${$('#filter_triwulan').val()}`).load()
+        table.ajax.url(`${BASE_URL}/capaianJurusan/datatable?tahun=${$('#filter_tahun').val()}&jurusan=${$('#filter_jurusan').val()}&triwulan=${$('#filter_triwulan').val()}`).load()
     })
 
     $('#filter_triwulan').on('change', function() {
-        table.ajax.url(`${BASE_URL}/capaianjurusan/datatable?tahun=${$('#filter_tahun').val()}&jurusan=${$('#filter_jurusan').val()}&triwulan=${$('#filter_triwulan').val()}`).load()
+        table.ajax.url(`${BASE_URL}/capaianJurusan/datatable?tahun=${$('#filter_tahun').val()}&jurusan=${$('#filter_jurusan').val()}&triwulan=${$('#filter_triwulan').val()}`).load()
     })
 
     $(document).on('click', '.btn-detail-modal', function() {
         const ref = $(this).data('reference')
         $.ajax({
-            url: `${BASE_URL}/capaianjurusan/modal_detail/${ref}`,
+            url: `${BASE_URL}/capaianJurusan/modal_detail/${ref}`,
             success: function(response) {
                 $('#modal-global-container.modal .modal-box').html(response.html)
                 $('#modal-global').prop('checked', true)
@@ -170,7 +170,7 @@
     $(document).on('click', '.btn-edit-modal', function() {
         const ref = $(this).data('reference')
 
-        location.href = `${BASE_URL}/capaianjurusan/isi_capaian/${ref}`
+        location.href = `${BASE_URL}/capaianJurusan/isi_capaian/${ref}`
     })
 
     initFormAjax('#form-isi-capaian', {

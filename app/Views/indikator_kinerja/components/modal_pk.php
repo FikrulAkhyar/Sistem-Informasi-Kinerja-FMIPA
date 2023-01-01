@@ -50,6 +50,6 @@
     })
 
     $('#btn-unduh').on('click', function() {
-        open(`${BASE_URL}/indikatorkinerja/unduh_pk?tahun=${$('#tahun').val()}&unit=${$('#unit_kerja').val()}&jurusan=${$('#jurusan').val()}`)
+        open(`${BASE_URL}/indikatorKinerja/unduh_pk?tahun=${$('#tahun').val()}&unit=${$('#unit_kerja').val()}&jurusan=${$('#jurusan').val()}`)
     })
 </script>

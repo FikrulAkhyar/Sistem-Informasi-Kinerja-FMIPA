@@ -96,7 +96,7 @@
             console.log(response.message)
             toastr.success(response.message)
             setTimeout(function() {
-                location.href = `${BASE_URL}/capaianjurusan/`
+                location.href = `${BASE_URL}/capaianJurusan/`
             }, 1000);
         },
         error: function(xhr) {

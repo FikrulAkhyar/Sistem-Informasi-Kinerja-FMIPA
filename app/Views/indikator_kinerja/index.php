@@ -50,7 +50,7 @@
         serverSide: true,
         responsive: false,
         scrollX: true,
-        ajax: `${BASE_URL}/indikatorkinerja/datatable?tahun=${$('#filter_tahun').val()}`,
+        ajax: `${BASE_URL}/indikatorKinerja/datatable?tahun=${$('#filter_tahun').val()}`,
         order: [
             [0, 'asc']
         ],
@@ -128,20 +128,20 @@
     $('#filter_tahun').on('change', function() {
         let tahun = $('#filter_tahun').val();
 
-        table.ajax.url(`${BASE_URL}/indikatorkinerja/datatable?tahun=${tahun}`).load()
+        table.ajax.url(`${BASE_URL}/indikatorKinerja/datatable?tahun=${tahun}`).load()
     })
 
     $('.btn-tambah').on('click', function(e) {
         e.preventDefault()
 
-        location.href = `${BASE_URL}/indikatorkinerja/create`
+        location.href = `${BASE_URL}/indikatorKinerja/create`
     })
 
     $('.btn-unduh-pk-modal').on('click', function(e) {
         e.preventDefault()
 
         $.ajax({
-            url: `${BASE_URL}/indikatorkinerja/modal_pk/`,
+            url: `${BASE_URL}/indikatorKinerja/modal_pk/`,
             success: function(response) {
                 $('#modal-global-container.modal .modal-box').html(response.html)
                 $('#modal-global').prop('checked', true)
@@ -153,19 +153,19 @@
     $(document).on('click', '.btn-edit', function() {
         const ref = $(this).data('reference')
 
-        location.href = `${BASE_URL}/indikatorkinerja/edit/${ref}`
+        location.href = `${BASE_URL}/indikatorKinerja/edit/${ref}`
     })
 
     $(document).on('click', '.btn-add-jurusan', function() {
         const ref = $(this).data('reference')
 
-        location.href = `${BASE_URL}/indikatorkinerja/jurusan/${ref}`
+        location.href = `${BASE_URL}/indikatorKinerja/jurusan/${ref}`
     })
 
     $(document).on('click', '.btn-delete-modal', function() {
         const ref = $(this).data('reference')
         $.ajax({
-            url: `${BASE_URL}/indikatorkinerja/modal_delete/${ref}`,
+            url: `${BASE_URL}/indikatorKinerja/modal_delete/${ref}`,
             success: function(response) {
                 $('#modal-global-container.modal .modal-box').html(response.html)
                 $('#modal-global').prop('checked', true)
@@ -177,7 +177,7 @@
         e.preventDefault()
 
         $.ajax({
-            url: `${BASE_URL}/indikatorkinerja/modal_tahun_baru/`,
+            url: `${BASE_URL}/indikatorKinerja/modal_tahun_baru/`,
             success: function(response) {
                 $('#modal-global-container.modal .modal-box').html(response.html)
                 $('#modal-global').prop('checked', true)

@@ -160,14 +160,14 @@
         })
 
         $.ajax({
-            url: `${BASE_URL}/indikatorkinerja/get_cascading?ik=${ik_id}&jurusan=${jurusan_id}`,
+            url: `${BASE_URL}/indikatorKinerja/get_cascading?ik=${ik_id}&jurusan=${jurusan_id}`,
             success: function(response) {
                 $(`#cascading${jurusan_id}`).val(response.data).change()
                 $(`#cascading${jurusan_id} option:selected`).each(function() {
                     let cascading_id = $(this).val()
                     let cascading_name = $(this).text()
                     $.ajax({
-                        url: `${BASE_URL}/indikatorkinerja/get_target?ik=${ik_id}&jurusan=${jurusan_id}&cascading=${cascading_id}`,
+                        url: `${BASE_URL}/indikatorKinerja/get_target?ik=${ik_id}&jurusan=${jurusan_id}&cascading=${cascading_id}`,
                         success: function(response) {
                             cascadingList.add({
                                 name: cascading_name,
@@ -288,7 +288,7 @@
         success: function(response) {
             toastr.success(response.message)
             setTimeout(function() {
-                location.href = `${BASE_URL}/indikatorkinerja/`
+                location.href = `${BASE_URL}/indikatorKinerja/`
             }, 1000);
         },
         error: function(xhr) {

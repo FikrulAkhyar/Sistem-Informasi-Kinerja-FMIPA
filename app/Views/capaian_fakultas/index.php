@@ -62,7 +62,7 @@
         serverSide: true,
         responsive: false,
         scrollX: true,
-        ajax: `${BASE_URL}/capaianfakultas/datatable?tahun=${$('#filter_tahun').val()}&triwulan=${$('#filter_triwulan').val()}`,
+        ajax: `${BASE_URL}/capaianFakultas/datatable?tahun=${$('#filter_tahun').val()}&triwulan=${$('#filter_triwulan').val()}`,
         order: [
             [0, 'asc']
         ],
@@ -134,12 +134,12 @@
     });
 
     $('#filter_tahun').on('change', function() {
-        table.ajax.url(`${BASE_URL}/capaianfakultas/datatable?tahun=${$('#filter_tahun').val()}&triwulan=${$('#filter_triwulan').val()}`).load()
+        table.ajax.url(`${BASE_URL}/capaianFakultas/datatable?tahun=${$('#filter_tahun').val()}&triwulan=${$('#filter_triwulan').val()}`).load()
     })
 
     $('#filter_triwulan').on('change', function() {
 
-        table.ajax.url(`${BASE_URL}/capaianfakultas/datatable?tahun=${$('#filter_tahun').val()}&triwulan=${$('#filter_triwulan').val()}`).load()
+        table.ajax.url(`${BASE_URL}/capaianFakultas/datatable?tahun=${$('#filter_tahun').val()}&triwulan=${$('#filter_triwulan').val()}`).load()
     })
 
     $(document).on('click', '.btn-unduh-dokumen', function() {
@@ -151,13 +151,13 @@
     $(document).on('click', '.btn-edit-modal', function() {
         const ref = $(this).data('reference')
 
-        location.href = `${BASE_URL}/capaianfakultas/isi_capaian/${ref}`
+        location.href = `${BASE_URL}/capaianFakultas/isi_capaian/${ref}`
     })
 
     $(document).on('click', '.btn-detail-modal', function() {
         const ref = $(this).data('reference')
         $.ajax({
-            url: `${BASE_URL}/capaianfakultas/modal_detail/${ref}`,
+            url: `${BASE_URL}/capaianFakultas/modal_detail/${ref}`,
             success: function(response) {
                 $('#modal-global-container.modal .modal-box').html(response.html)
                 $('#modal-global').prop('checked', true)

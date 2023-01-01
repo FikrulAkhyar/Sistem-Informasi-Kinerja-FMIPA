@@ -87,7 +87,7 @@
             console.log(response.message)
             toastr.success(response.message)
             setTimeout(function() {
-                location.href = `${BASE_URL}/capaianfakultas/`
+                location.href = `${BASE_URL}/capaianFakultas/`
             }, 1000);
         },
         error: function(xhr) {
