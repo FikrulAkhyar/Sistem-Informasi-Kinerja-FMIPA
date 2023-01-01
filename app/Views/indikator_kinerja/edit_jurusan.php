@@ -7,7 +7,7 @@
 <div class="lg:text-2xl text-xl font-bold">Gunakan IK-1.01 Untuk Jurusan</div>
 
 <div class="mx-auto mt-5 mb-10">
-    <form action="<?= base_url('indikatorkinerja/update_jurusan/' . $id) ?>" id="form-edit-indikator-jurusan" method="POST" show-validation>
+    <form action="<?= base_url('indikatorKinerja/update_jurusan/' . $id) ?>" id="form-edit-indikator-jurusan" method="POST" show-validation>
 
         <div class="form-control">
             <label for="keterangan" class="label">

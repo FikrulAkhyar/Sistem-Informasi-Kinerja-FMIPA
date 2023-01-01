@@ -6,7 +6,7 @@
 <div class="lg:text-2xl text-xl font-bold">Tambah Indikator Kinerja</div>
 
 <div class="mx-auto mt-5 mb-10">
-    <form action="<?= base_url('indikatorkinerja/store') ?>" id="form-add-indikator" method="POST" show-validation>
+    <form action="<?= base_url('indikatorKinerja/store') ?>" id="form-add-indikator" method="POST" show-validation>
         <div class="form-control">
             <label for="sasaran" class="label">
                 <span class="label-text label-required">Sasaran</span>
@@ -132,7 +132,7 @@
             console.log(response.message)
             toastr.success(response.message)
             setTimeout(function() {
-                location.href = `${BASE_URL}/indikatorKinerja/`
+                location.href = `${BASE_URL}/K/`
             }, 1000);
         },
         error: function(xhr) {

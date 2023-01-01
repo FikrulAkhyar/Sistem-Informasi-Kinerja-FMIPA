@@ -6,7 +6,7 @@
 <div class="lg:text-2xl text-xl font-bold">Isi Capaian <?= $ik['kode_indikator_kinerja'] ?> <?= $ik['tahun'] ?> <?= $ik['nama_triwulan'] ?> <?= 'Jurusan ' . $ik['nama_jurusan'] ?> ( Target <?= $ik['target'] ?> )</div>
 
 <div class="mx-auto mt-5 mb-10">
-    <form action="<?= base_url('capaianjurusan/store_capaian/' . $id) ?>" enctype="multipart/form-data" id="form-isi-capaian-jurusan" method="POST" show-validation>
+    <form action="<?= base_url('capaianJurusan/store_capaian/' . $id) ?>" enctype="multipart/form-data" id="form-isi-capaian-jurusan" method="POST" show-validation>
         <div class="alert my-2">
             <div class="flex-1">
                 <div>

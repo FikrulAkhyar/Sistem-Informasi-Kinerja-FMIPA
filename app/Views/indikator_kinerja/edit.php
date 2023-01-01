@@ -6,7 +6,7 @@
 <div class="lg:text-2xl text-xl font-bold">Edit Indikator Kinerja IK-1.01</div>
 
 <div class="mx-auto mt-5 mb-10">
-    <form action="<?= base_url('indikatorkinerja/update/' . $id) ?>" id="form-update-indikator" method="POST" show-validation>
+    <form action="<?= base_url('indikatorKinerja/update/' . $id) ?>" id="form-update-indikator" method="POST" show-validation>
         <div class="form-control">
             <label for="sasaran" class="label">
                 <span class="label-text label-required">Sasaran</span>
