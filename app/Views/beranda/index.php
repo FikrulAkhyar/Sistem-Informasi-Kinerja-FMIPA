@@ -39,7 +39,7 @@
   </div>
 
   <div class="overflow-x-auto my-3 <?= $pk == false ? "hidden" : '' ?>">
-    <table class="table w-full" style="width: 100%;">
+    <table class="table w-full border" style="width: 100%;">
       <thead>
         <tr class="text-center">
           <th width="300">Sasaran</th>

@@ -752,8 +752,12 @@ class IndikatorKinerja extends BaseController
     public function unduh_pk()
     {
         $unit_kerja = $this->request->getGet('unit');
-        $jurusan = $this->request->getGet('jurusan');
         $tahun = $this->request->getGet('tahun');
+        $data['tahun'] = $tahun;
+
+        $mpdf = new Mpdf(['mode' => 'utf-8', 'debug' => true, 'format' => 'A4']);
+        $mpdf->showImageErrors = true;
+        $view = \Config\Services::renderer();
 
         if ($unit_kerja == 1) {
             $data['pk'] = $this->db->table('indikator_kinerja ik')
@@ -782,20 +786,58 @@ class IndikatorKinerja extends BaseController
                     ])
                     ->get()->getResultArray();
             }
-        }
 
-        $data['tahun'] = $tahun;
-        if ($jurusan) {
+            $data['rektor'] = $this->db->table('pimpinan')->where('jabatan_id', 1)->get()->getRowArray();
+            $data['dekan'] = $this->db->table('pimpinan')->where('jabatan_id', 2)->get()->getRowArray();
+
+            $content = $view->setData($data)->render('indikator_kinerja/components/template_pk_fakultas');
+        } else {
+            $jurusan = $this->request->getGet('jurusan');
             $data['jurusan'] = $this->db->table('jurusan')->where('jurusan_id', $jurusan)->get()->getRowArray();
+
+            $data['pk'] = $this->db->table('indikator_kinerja ik')
+                ->join('indikator_kinerja_jurusan ikj', 'ikj.indikator_kinerja_id = ik.indikator_kinerja_id')
+                ->join('sasaran s', 's.sasaran_id = ik.sasaran_id')
+                ->select('s.keterangan as sasaran, ik.sasaran_id')
+                ->where([
+                    'ik.tahun' => $tahun,
+                    'ikj.jurusan_id' => $jurusan
+                ])
+                ->groupBy('ik.sasaran_id')
+                ->get()->getResultArray();
+
+            for ($i = 0; $i < count($data['pk']); $i++) {
+                $data['pk'][$i]['indikator'] = $this->db->table('indikator_kinerja ik')
+                    ->join('indikator_kinerja_jurusan ikj', 'ikj.indikator_kinerja_id = ik.indikator_kinerja_id')
+                    ->join('satuan st', 'st.satuan_id = ik.satuan_id')
+                    ->join('target_jurusan t', 't.indikator_kinerja_id = ik.indikator_kinerja_id')
+                    ->join('cascading c', 'c.cascading_id = t.cascading_id')
+                    ->select('
+                        ik.indikator_kinerja_id,
+                        ik.kode_indikator_kinerja,
+                        ik.keterangan as indikator_kinerja,
+                        st.nama_satuan,
+                        c.nama_cascading,
+                        t.triwulan_satu,
+                        t.triwulan_dua,
+                        t.triwulan_tiga,
+                        t.triwulan_empat
+                    ')
+                    ->where([
+                        'ik.tahun' => $tahun,
+                        'ik.sasaran_id' => $data['pk'][$i]['sasaran_id'],
+                        'ikj.jurusan_id' => $jurusan,
+                        't.jurusan_id' => $jurusan
+                    ])
+                    ->get()->getResultArray();
+            }
+
+            $data['dekan'] = $this->db->table('pimpinan')->where('jabatan_id', 2)->get()->getRowArray();
+            $data['kajur'] = $this->db->table('pimpinan')->where(['jabatan_id' => 3, 'jurusan_id => $jurusan'])->get()->getRowArray();
+            $content = $view->setData($data)->render('indikator_kinerja/components/template_pk_jurusan');
         }
 
-        // dd($data);
-        // return view('indikator_kinerja/components/template_pk', $data);
-        $mpdf = new Mpdf(['mode' => 'utf-8', 'debug' => true, 'format' => 'A4']);
-        $mpdf->showImageErrors = true;
 
-        $view = \Config\Services::renderer();
-        $content = $view->setData($data)->render('indikator_kinerja/components/template_pk');
         $mpdf->WriteHTML($content);
         ob_end_clean();
 
