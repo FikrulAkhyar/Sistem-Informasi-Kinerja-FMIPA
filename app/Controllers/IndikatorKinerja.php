@@ -836,7 +836,7 @@ class IndikatorKinerja extends BaseController
             $data['dekan'] = $this->db->table('pimpinan')->where('jabatan_id', 2)->get()->getRowArray();
             $data['kajur'] = $this->db->table('pimpinan')->where(['jabatan_id' => 3, 'jurusan_id => $jurusan'])->get()->getRowArray();
             $content = $view->setData($data)->render('indikator_kinerja/components/template_pk_jurusan');
-            $namaFile = 'PK_FMIPA_' . $tahun . '_' . $jurusan['nama_jurusan'];
+            $namaFile = 'PK_FMIPA_' . $tahun . '_' . $data['jurusan']['nama_jurusan'];
         }
 
 
