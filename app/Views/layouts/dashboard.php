@@ -113,8 +113,8 @@
                         </a>
                     </li>
 
-                    <li class="<?= strpos(current_url(), 'capaianfakultas') ? 'active' : '' ?>">
-                        <a class="flex justify-between" href="<?= base_url('capaianfakultas') ?>">
+                    <li class="<?= strpos(current_url(), 'capaianFakultas') ? 'active' : '' ?>">
+                        <a class="flex justify-between" href="<?= base_url('capaianFakultas') ?>">
                             <div class="flex justify-start">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"></path>
@@ -130,8 +130,8 @@
                         </a>
                     </li>
 
-                    <li class="<?= strpos(current_url(), 'capaianjurusan') ? 'active' : '' ?>">
-                        <a class="flex justify-between" href="<?= base_url('capaianjurusan') ?>">
+                    <li class="<?= strpos(current_url(), 'capaianJurusan') ? 'active' : '' ?>">
+                        <a class="flex justify-between" href="<?= base_url('capaianJurusan') ?>">
                             <div class="flex justify-start">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"></path>
@@ -147,8 +147,8 @@
                         </a>
                     </li>
 
-                    <li class="<?= strpos(current_url(), 'indikatorkinerja') ? 'active' : '' ?>">
-                        <a class="flex justify-between" href="<?= base_url('indikatorkinerja') ?>">
+                    <li class="<?= strpos(current_url(), 'indikatorKinerja') ? 'active' : '' ?>">
+                        <a class="flex justify-between" href="<?= base_url('indikatorKinerja') ?>">
                             <div class="flex justify-start">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"></path>

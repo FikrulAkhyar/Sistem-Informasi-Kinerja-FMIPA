@@ -34,9 +34,9 @@ $routes->setAutoRoute(true);
  */
 $routes->get('/', 'Auth::login');
 $routes->get('/beranda', 'Beranda::index');
-$routes->get('/capaianfakultas', 'CapaianFakultas::index');
-$routes->get('/capaianjurusan', 'CapaianJurusan::index');
-$routes->get('/indikatorkinerja', 'IndikatorKinerja::index');
+$routes->get('/capaianFakultas', 'CapaianFakultas::index');
+$routes->get('/capaianJurusan', 'CapaianJurusan::index');
+$routes->get('/indikatorKinerja', 'IndikatorKinerja::index');
 $routes->get('/pengguna', 'Pengguna::index');
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
