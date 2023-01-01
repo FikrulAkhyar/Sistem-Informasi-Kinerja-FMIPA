@@ -54,7 +54,7 @@ class IndikatorKinerja extends BaseController
     {
         $data['sasaran'] = $this->db->table('sasaran')->get()->getResultArray();
         $data['satuan'] = $this->db->table('satuan')->get()->getResultArray();
-        $data['cascading'] = $this->db->table('cascading')->get()->getResultArray();
+        $data['cascading'] = $this->db->table('cascading')->where('is_jurusan', 0)->get()->getResultArray();
 
         return view('indikator_kinerja/create', $data);
     }
@@ -170,7 +170,7 @@ class IndikatorKinerja extends BaseController
 
         $data['sasaran'] = $this->db->table('sasaran')->get()->getResultArray();
         $data['satuan'] = $this->db->table('satuan')->get()->getResultArray();
-        $data['cascading'] = $this->db->table('cascading')->get()->getResultArray();
+        $data['cascading'] = $this->db->table('cascading')->where('is_jurusan', 0)->get()->getResultArray();
 
         return view('indikator_kinerja/edit', $data);
     }
