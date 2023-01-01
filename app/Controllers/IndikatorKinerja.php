@@ -791,6 +791,7 @@ class IndikatorKinerja extends BaseController
             $data['dekan'] = $this->db->table('pimpinan')->where('jabatan_id', 2)->get()->getRowArray();
 
             $content = $view->setData($data)->render('indikator_kinerja/components/template_pk_fakultas');
+            $namaFile = 'PK_FMIPA_' . $tahun;
         } else {
             $jurusan = $this->request->getGet('jurusan');
             $data['jurusan'] = $this->db->table('jurusan')->where('jurusan_id', $jurusan)->get()->getRowArray();
@@ -835,6 +836,7 @@ class IndikatorKinerja extends BaseController
             $data['dekan'] = $this->db->table('pimpinan')->where('jabatan_id', 2)->get()->getRowArray();
             $data['kajur'] = $this->db->table('pimpinan')->where(['jabatan_id' => 3, 'jurusan_id => $jurusan'])->get()->getRowArray();
             $content = $view->setData($data)->render('indikator_kinerja/components/template_pk_jurusan');
+            $namaFile = 'PK_FMIPA_' . $tahun . '_' . $jurusan['nama_jurusan'];
         }
 
 
@@ -842,6 +844,6 @@ class IndikatorKinerja extends BaseController
         ob_end_clean();
 
         $this->response->setHeader('Content-type', 'application/pdf');
-        return $mpdf->Output('PK_FMIPA' . ".pdf", 'I');
+        return $mpdf->Output($namaFile . ".pdf", 'I');
     }
 }
