@@ -132,7 +132,7 @@
             console.log(response.message)
             toastr.success(response.message)
             setTimeout(function() {
-                location.href = `${BASE_URL}/K/`
+                location.href = `${BASE_URL}/indikatorKinerja/`
             }, 1000);
         },
         error: function(xhr) {
