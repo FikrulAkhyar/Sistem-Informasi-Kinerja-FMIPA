@@ -17,8 +17,8 @@ if (is_file(SYSTEMPATH . 'Config/Routes.php')) {
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Beranda');
-$routes->setDefaultMethod('index');
+$routes->setDefaultController('Auth');
+$routes->setDefaultMethod('login');
 $routes->setTranslateURIDashes(true);
 $routes->set404Override();
 // The Auto Routing (Legacy) is very dangerous. It is easy to create vulnerable apps
@@ -32,7 +32,12 @@ $routes->setAutoRoute(true);
  * Route Definitions
  * --------------------------------------------------------------------
  */
-
+$routes->get('/', 'Auth::login');
+$routes->get('/beranda', 'Beranda::index');
+$routes->get('/capaianfakultas', 'CapaianFakultas::index');
+$routes->get('/capaianjurusan', 'CapaianJurusan::index');
+$routes->get('/indikatorkinerja', 'IndikatorKinerja::index');
+$routes->get('/pengguna', 'Pengguna::index');
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
