@@ -36,7 +36,7 @@
                         </label>
                     </div>
                     <div class="flex-none gap-2">
-                        <div class="pt-3 font-semibold">Admin</div>
+                        <div class="pt-3 font-semibold"><?= session('nama') ?></div>
                         <div class="dropdown dropdown-end">
                             <label tabindex="0" class="btn btn-ghost btn-circle avatar">
                                 <div class="w-15 rounded-full">
@@ -45,7 +45,7 @@
                             </label>
                             <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
                                 <li>
-                                    <a href="<?= base_url('auth/login') ?>">
+                                    <a href="<?= base_url('auth/logout') ?>">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                                         </svg>
@@ -96,7 +96,7 @@
                         </a>
                     </li>
 
-                    <li class="<?= strpos(current_url(), 'pengguna') ? 'active' : '' ?>">
+                    <li class="<?= strpos(current_url(), 'pengguna') ? 'active' : '' ?> <?= session('level') != 1 ? 'hidden' : '' ?>">
                         <a class="flex justify-between" href="<?= base_url('pengguna') ?>">
                             <div class="flex justify-start">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -113,7 +113,7 @@
                         </a>
                     </li>
 
-                    <li class="<?= strpos(current_url(), 'capaianFakultas') ? 'active' : '' ?>">
+                    <li class="<?= strpos(current_url(), 'capaianFakultas') ? 'active' : '' ?> <?= session('level') == 3 ? 'hidden' : '' ?>">
                         <a class="flex justify-between" href="<?= base_url('capaianFakultas') ?>">
                             <div class="flex justify-start">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -147,7 +147,7 @@
                         </a>
                     </li>
 
-                    <li class="<?= strpos(current_url(), 'indikatorKinerja') ? 'active' : '' ?>">
+                    <li class="<?= strpos(current_url(), 'indikatorKinerja') ? 'active' : '' ?> <?= session('level') == 3 ? 'hidden' : '' ?>">
                         <a class="flex justify-between" href="<?= base_url('indikatorKinerja') ?>">
                             <div class="flex justify-start">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

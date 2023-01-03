@@ -21,7 +21,7 @@
 
         <div class="max-w-md lg:m-auto w-full mx-auto">
 
-            <form id="form-login" method="POST" action="">
+            <form id="form-login" method="POST" action="<?= base_url('auth/login') ?>">
                 <div class="form-control">
                     <label for="username" class="label">
                         <span class="label-text">Username</span>
@@ -36,8 +36,7 @@
                     <input type="password" name="password" id="password" class="input input-bordered">
                 </div>
 
-                <!-- <button class="btn btn-primary btn-block font-bold mt-6">LOGIN</button> -->
-                <a href="<?= base_url('beranda') ?>" class="btn btn-primary btn-block font-bold mt-6">MASUK</a>
+                <button type="submit" class="btn btn-primary btn-block font-bold mt-6">MASUK</button>
             </form>
 
             <!-- Footer -->
@@ -49,6 +48,21 @@
             <!-- End of Footer -->
         </div>
     </div>
+
+    <script>
+        initFormAjax('#form-login', {
+            success: function(response) {
+                toastr.success(response.message)
+                setTimeout(function() {
+                    location.href = `${BASE_URL}`
+                }, 1500);
+            },
+            error: function(xhr) {
+                const response = xhr.responseJSON
+                toastr.error(response.message)
+            }
+        })
+    </script>
 </body>
 
 </html>

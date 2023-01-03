@@ -17,7 +17,7 @@
         <label for="password" class="label">
             <span class="label-text label-required">Password</span>
         </label>
-        <input type="text" name="password" id="password" class="input input-bordered" placeholder="masukkan password pengguna">
+        <input type="password" name="password" id="password" class="input input-bordered" placeholder="masukkan password pengguna">
     </div>
     <div class="form-control">
         <label for="level" class="label">

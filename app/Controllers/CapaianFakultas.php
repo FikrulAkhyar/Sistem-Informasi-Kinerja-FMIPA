@@ -17,6 +17,10 @@ class CapaianFakultas extends BaseController
 
     public function index()
     {
+        if (session('level') == 3) {
+            return redirect()->to('/');
+        }
+
         $data['tahun'] = $this->db->table('indikator_kinerja')
             ->select('tahun')
             ->groupBy('tahun')
@@ -34,6 +38,10 @@ class CapaianFakultas extends BaseController
 
     public function datatable()
     {
+        if (session('level') == 3) {
+            return redirect()->to('/');
+        }
+
         $tahun = $this->request->getGet('tahun');
         $triwulan = $this->request->getGet('triwulan');
 
@@ -95,6 +103,10 @@ class CapaianFakultas extends BaseController
 
     public function modal_detail($id)
     {
+        if (session('level') == 3) {
+            return redirect()->to('/');
+        }
+
         $capaian = $this->db->table('capaian_fakultas')->where('capaian_fakultas_id', $id)->get()->getRowArray();
 
         $data['capaian'] = $this->db->table('capaian_fakultas c')
@@ -131,6 +143,10 @@ class CapaianFakultas extends BaseController
 
     public function isi_capaian($id)
     {
+        if (session('level') == 3) {
+            return redirect()->to('/');
+        }
+
         $capaian = $this->db->table('capaian_fakultas')->where('capaian_fakultas_id', $id)->get()->getRowArray();
         $data['id'] = $id;
         $data['ik'] = $this->db->table('indikator_kinerja ik')
@@ -210,6 +226,10 @@ class CapaianFakultas extends BaseController
 
     public function store_capaian($id)
     {
+        if (session('level') == 3) {
+            return redirect()->to('/');
+        }
+
         $capaian = $this->db->table('capaian_fakultas c')
             ->join('indikator_kinerja ik', 'ik.indikator_kinerja_id = c.indikator_kinerja_id')
             ->select('

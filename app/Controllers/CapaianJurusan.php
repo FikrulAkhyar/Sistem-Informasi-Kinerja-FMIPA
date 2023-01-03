@@ -23,7 +23,12 @@ class CapaianJurusan extends BaseController
             ->orderBy('tahun', 'desc')
             ->get()->getResultArray();
 
-        $data['jurusan'] = $this->db->table('jurusan')->get()->getResultArray();
+        if (session('level') == 3) {
+            $data['jurusan'] = $this->db->table('jurusan')->where('jurusan_id', session('jurusan'))->get()->getResultArray();
+        } else {
+            $data['jurusan'] = $this->db->table('jurusan')->get()->getResultArray();
+        }
+
         $data['triwulan'] = $this->db->table('triwulan')->get()->getResultArray();
 
         for ($i = 0; $i < count($data['triwulan']); $i++) {

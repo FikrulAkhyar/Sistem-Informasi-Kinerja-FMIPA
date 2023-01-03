@@ -5,13 +5,13 @@
         <label for="password" class="label">
             <span class="label-text label-required">Password</span>
         </label>
-        <input type="text" name="password" id="password" class="input input-bordered" placeholder="masukkan password baru">
+        <input type="password" name="password" id="password" class="input input-bordered" placeholder="masukkan password baru">
     </div>
     <div class="form-control">
         <label for="confirm_password" class="label">
             <span class="label-text label-required">Konfirmasi Password</span>
         </label>
-        <input type="text" name="confirm_password" id="confirm_password" class="input input-bordered" placeholder="masukkan konfirmasi password">
+        <input type="password" name="confirm_password" id="confirm_password" class="input input-bordered" placeholder="masukkan konfirmasi password">
     </div>
 
 
