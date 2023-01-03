@@ -15,7 +15,7 @@
         </label>
         <select id="filter_tahun" class="select select-bordered" style="width: 100%;">
           <?php foreach ($tahun as $t) : ?>
-            <option value="<?= $t['tahun'] ?>" <?= $t['tahun'] == date('Y') ? 'selected' : '' ?>><?= $t['tahun'] ?></option>
+            <option value="<?= $t['tahun'] ?>" <?= $t['tahun'] == $tahun ? 'selected' : '' ?>><?= $t['tahun'] ?></option>
           <?php endforeach ?>
         </select>
       </div>
