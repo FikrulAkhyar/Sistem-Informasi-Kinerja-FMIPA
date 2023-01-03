@@ -340,27 +340,27 @@ class CapaianJurusan extends BaseController
             }
         }
 
-        for ($i = 0; $i < count($uraian); $i++) {
-            $capaian_fakultas = $this->db->table('capaian_jurusan')
-                ->select('
-                    uraian,
-                    SUM(capaian) as capaian,
-                    SUM(pembagi) as pembagi,
-                    SUM(hasil) as hasil,
-                ')
-                ->where([
-                    'indikator_kinerja_id' => $capaian['indikator_kinerja_id'],
-                    'triwulan_id' => $capaian['triwulan_id'],
-                    'uraian' => $uraian[$i]
-                ])
-                ->get()->getRowArray();
+        // for ($i = 0; $i < count($uraian); $i++) {
+        //     $capaian_fakultas = $this->db->table('capaian_jurusan')
+        //         ->select('
+        //             uraian,
+        //             SUM(capaian) as capaian,
+        //             SUM(pembagi) as pembagi,
+        //             SUM(hasil) as hasil,
+        //         ')
+        //         ->where([
+        //             'indikator_kinerja_id' => $capaian['indikator_kinerja_id'],
+        //             'triwulan_id' => $capaian['triwulan_id'],
+        //             'uraian' => $uraian[$i]
+        //         ])
+        //         ->get()->getRowArray();
 
-            $this->db->table('capaian_fakultas')->where([
-                'indikator_kinerja_id' => $capaian['indikator_kinerja_id'],
-                'triwulan_id' => $capaian['triwulan_id'],
-                'uraian' => $uraian[$i],
-            ])->update($capaian_fakultas);
-        }
+        //     $this->db->table('capaian_fakultas')->where([
+        //         'indikator_kinerja_id' => $capaian['indikator_kinerja_id'],
+        //         'triwulan_id' => $capaian['triwulan_id'],
+        //         'uraian' => $uraian[$i],
+        //     ])->update($capaian_fakultas);
+        // }
 
         $response = [
             'message' => 'Berhasil mengisi capaian indikator kinerja'
