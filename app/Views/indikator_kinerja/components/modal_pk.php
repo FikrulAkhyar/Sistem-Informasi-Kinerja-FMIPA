@@ -33,7 +33,7 @@
     </select>
 </div>
 <div class="my-3">
-    <button id="btn-unduh" class="btn btn-block btn-primary">UNDUH</button>
+    <button id="btn-unduh" class="btn btn-block btn-primary" disabled>UNDUH</button>
 </div>
 
 <script>
@@ -43,9 +43,15 @@
         let unit_kerja = $(this).val()
         if (unit_kerja == 2) {
             $('.input-jurusan').removeClass('hidden')
+
+            $('#jurusan').on('change', function() {
+                $('#btn-unduh').prop('disabled', false);
+            })
         } else {
             $('.input-jurusan').addClass('hidden')
             $('#jurusan option:first').prop('selected', true);
+
+            $('#btn-unduh').prop('disabled', false);
         }
     })
 
