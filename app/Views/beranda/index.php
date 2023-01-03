@@ -15,7 +15,7 @@
         </label>
         <select id="filter_tahun" class="select select-bordered" style="width: 100%;">
           <?php foreach ($tahun as $t) : ?>
-            <option value="<?= $t['tahun'] ?>" <?= $t['tahun'] == $tahun ? 'selected' : '' ?>><?= $t['tahun'] ?></option>
+            <option value="<?= $t['tahun'] ?>" <?= $t['tahun'] == date('Y') ? 'selected' : '' ?>><?= $t['tahun'] ?></option>
           <?php endforeach ?>
         </select>
       </div>
@@ -28,7 +28,7 @@
         <select id="filter_triwulan" class="select select-bordered" style="width: 100%;">
           <option selected disabled>Pilih Triwulan</option>
           <?php foreach ($triwulan as $t) : ?>
-            <option value="<?= $t['triwulan_id'] ?>" <?= in_array(date('F'), $t['bulan']) ? 'selected' : '' ?>><?= $t['nama_triwulan'] ?></option>
+            <option value="<?= $t['triwulan_id'] ?>" <?= $triwulanAktif == $t['triwulan_id'] ? 'selected' : '' ?>><?= $t['nama_triwulan'] ?></option>
           <?php endforeach ?>
         </select>
       </div>
