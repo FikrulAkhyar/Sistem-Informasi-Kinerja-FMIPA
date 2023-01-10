@@ -49,10 +49,10 @@
                     <tr>
                         <td><?= $capaian[$i]['uraian'] ?></td>
                         <td class="text-center">
-                            <input type="number" name="capaian[<?= $capaian[$i]['uraian'] ?>]" id="capaian<?= $i ?>" class="input input-bordered lg:w-32 w-full" min="0" step="0.1" value="<?= $capaian[$i]['capaian'] ?>">
+                            <input type="number" name="capaian[<?= $capaian[$i]['uraian'] ?>]" id="capaian<?= $i ?>" class="input input-bordered lg:w-32 w-full" min="0" step="0.01" value="<?= $capaian[$i]['capaian'] ?>">
                         </td>
                         <td class="text-center">
-                            <input type="number" name="pembagi[<?= $capaian[$i]['uraian'] ?>]" id="pembagi<?= $i ?>" class="input input-bordered lg:w-32 w-full" min="0" step="0.1" value="<?= $capaian[$i]['pembagi'] ?>">
+                            <input type="number" name="pembagi[<?= $capaian[$i]['uraian'] ?>]" id="pembagi<?= $i ?>" class="input input-bordered lg:w-32 w-full pembagi" min="0" step="0.01" value="<?= $capaian[$i]['pembagi'] ?>">
                         </td>
                         <td class="text-center">
                             <input type="text" name="hasil[<?= $capaian[$i]['uraian'] ?>]" id="hasil<?= $i ?>" class="input input-bordered lg:w-32 w-full" value="<?= $capaian[$i]['hasil'] ?>" readonly>
@@ -73,14 +73,17 @@
 
     for (let i = 0; i < capaian.length; i++) {
         $(`#capaian${i}`).on('input', function() {
-            let hasil = parseFloat(($(`#capaian${i}`).val() / $(`#pembagi${i}`).val()) * 100).toFixed(2)
+            let hasil = parseFloat(($(`#capaian${i}`).val() / $('.pembagi').val()) * 100).toFixed(2)
             $(`#hasil${i}`).val(hasil)
         })
-        $(`#pembagi${i}`).on('input', function() {
-            let hasil = parseFloat(($(`#capaian${i}`).val() / $(`#pembagi${i}`).val()) * 100).toFixed(2)
+        $(`.pembagi`).on('input', function() {
+            let pembagi = $('.pembagi').val()
+            $(`.pembagi`).val(pembagi)
+            let hasil = parseFloat(($(`#capaian${i}`).val() / $('.pembagi').val()) * 100).toFixed(2)
             $(`#hasil${i}`).val(hasil)
         })
     }
+
 
     initFormAjax('#form-isi-capaian-fakultas', {
         success: function(response) {

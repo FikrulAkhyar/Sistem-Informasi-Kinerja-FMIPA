@@ -52,7 +52,7 @@
         scrollX: true,
         ajax: `${BASE_URL}/indikatorKinerja/datatable?tahun=${$('#filter_tahun').val()}`,
         order: [
-            [0, 'asc']
+            [5, 'asc']
         ],
         columns: [{
                 data: 'kode_indikator_kinerja',

@@ -54,10 +54,10 @@
                     <tr>
                         <td><?= $capaian[$i]['capaian'][$j]['uraian'] ?></td>
                         <td class="text-center">
-                            <input type="number" name="capaian[<?= $capaian[$i]['cascading_id'] ?>][<?= $capaian[$i]['capaian'][$j]['uraian'] ?>]" id="capaian_<?= $i . '_' . $j ?>" class="input input-bordered lg:w-32 w-full" min="0" step="0.1" value="<?= $capaian[$i]['capaian'][$j]['capaian'] ?>">
+                            <input type="number" name="capaian[<?= $capaian[$i]['cascading_id'] ?>][<?= $capaian[$i]['capaian'][$j]['uraian'] ?>]" id="capaian_<?= $i . '_' . $j ?>" class="input input-bordered lg:w-32 w-full" min="0" step="0.01" value="<?= $capaian[$i]['capaian'][$j]['capaian'] ?>">
                         </td>
                         <td class="text-center">
-                            <input type="number" name="pembagi[<?= $capaian[$i]['cascading_id'] ?>][<?= $capaian[$i]['capaian'][$j]['uraian'] ?>]" id="pembagi_<?= $i . '_' . $j ?>" class="input input-bordered lg:w-32 w-full" min="0" step="0.1" value="<?= $capaian[$i]['capaian'][$j]['pembagi'] ?>">
+                            <input type="number" name="pembagi[<?= $capaian[$i]['cascading_id'] ?>][<?= $capaian[$i]['capaian'][$j]['uraian'] ?>]" id="pembagi_<?= $i . '_' . $j ?>" class="input input-bordered lg:w-32 w-full pembagi" min="0" step="0.01" value="<?= $capaian[$i]['capaian'][$j]['pembagi'] ?>">
                         </td>
                         <td class="text-center">
                             <input type="text" name="hasil[<?= $capaian[$i]['cascading_id'] ?>][<?= $capaian[$i]['capaian'][$j]['uraian'] ?>]" id="hasil_<?= $i . '_' . $j ?>" class="input input-bordered lg:w-32 w-full" value="<?= $capaian[$i]['capaian'][$j]['hasil'] ?>" readonly>
@@ -84,7 +84,9 @@
                 let hasil = parseFloat(($(`#capaian_${i}_${j}`).val() / $(`#pembagi_${i}_${j}`).val()) * 100).toFixed(2)
                 $(`#hasil_${i}_${j}`).val(hasil)
             })
-            $(`#pembagi_${i}_${j}`).on('input', function() {
+            $(`.pembagi`).on('input', function() {
+                let pembagi = $('.pembagi').val()
+                $(`.pembagi`).val(pembagi)
                 let hasil = parseFloat(($(`#capaian_${i}_${j}`).val() / $(`#pembagi_${i}_${j}`).val()) * 100).toFixed(2)
                 $(`#hasil_${i}_${j}`).val(hasil)
             })

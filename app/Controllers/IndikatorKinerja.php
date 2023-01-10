@@ -488,8 +488,9 @@ class IndikatorKinerja extends BaseController
 
         $data['id'] = $id;
 
-        $data['ik'] = $this->db->table('indikator_kinerja_jurusan')
-            ->where('indikator_kinerja_id', $id)
+        $data['ik'] = $this->db->table('indikator_kinerja_jurusan ikj')
+            ->join('indikator_kinerja ik', 'ik.indikator_kinerja_id = ikj.indikator_kinerja_id')
+            ->where('ik.indikator_kinerja_id', $id)
             ->get()->getRowArray();
 
         $data['satuan'] = $this->db->table('satuan')->get()->getResultArray();
@@ -503,8 +504,14 @@ class IndikatorKinerja extends BaseController
                 ->where('indikator_kinerja_id', $id)
                 ->get()->getResultArray());
 
+            // dd($data);
+
             return view('indikator_kinerja/edit_jurusan', $data);
         } else {
+            $data['ik'] = $this->db->table('indikator_kinerja')
+                ->where('indikator_kinerja_id', $id)
+                ->get()->getRowArray();
+
             return view('indikator_kinerja/jurusan', $data);
         }
     }

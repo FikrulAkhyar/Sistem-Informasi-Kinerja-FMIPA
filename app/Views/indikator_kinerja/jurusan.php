@@ -4,7 +4,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<div class="lg:text-2xl text-xl font-bold">Gunakan IK-1.01 Untuk Jurusan</div>
+<div class="lg:text-2xl text-xl font-bold">Gunakan <?= $ik['kode_indikator_kinerja'] ?> Untuk Jurusan</div>
 
 <div class="mx-auto mt-5 mb-10">
     <form action="<?= base_url('indikatorKinerja/store_jurusan/' . $id) ?>" id="form-add-indikator-jurusan" method="POST" show-validation>

@@ -31,6 +31,7 @@ class Beranda extends BaseController
         $triwulan = $this->request->getGet('triwulan');
 
         $data['triwulanAktif'] = $triwulan;
+        $data['tahunAktif'] = $tahun;
 
         $data['pk'] = $this->db->table('indikator_kinerja ik')
             ->join('sasaran s', 's.sasaran_id = ik.sasaran_id')

@@ -21,7 +21,7 @@
 
         <div class="form-control">
             <label for="kode" class="label">
-                <span class="label-text label-required">Kode Indikator Kerja</span>
+                <span class="label-text label-required">Kode Indikator Kinerja</span>
             </label>
             <input type="text" name="kode" id="kode" class="input input-bordered" placeholder="Masukkan kode IK">
         </div>
