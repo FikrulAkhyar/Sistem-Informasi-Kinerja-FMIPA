@@ -158,6 +158,7 @@ class CapaianFakultas extends BaseController
         if ($capaian['triwulan_id'] == 1) {
             $data['ik'] = $data['ik']->select('
                 ik.indikator_kinerja_id,
+                ik.satuan_id,
                 ik.kode_indikator_kinerja,
                 ik.tahun,
                 ik.keterangan,
@@ -168,6 +169,7 @@ class CapaianFakultas extends BaseController
         } else if ($capaian['triwulan_id'] == 2) {
             $data['ik'] = $data['ik']->select('
                 ik.indikator_kinerja_id,
+                ik.satuan_id,
                 ik.kode_indikator_kinerja,
                 ik.tahun,
                 ik.keterangan,
@@ -179,6 +181,7 @@ class CapaianFakultas extends BaseController
         if ($capaian['triwulan_id'] == 3) {
             $data['ik'] = $data['ik']->select('
                 ik.indikator_kinerja_id,
+                ik.satuan_id,
                 ik.kode_indikator_kinerja,
                 ik.tahun,
                 ik.keterangan,
@@ -190,6 +193,7 @@ class CapaianFakultas extends BaseController
         if ($capaian['triwulan_id'] == 4) {
             $data['ik'] = $data['ik']->select('
                 ik.indikator_kinerja_id,
+                ik.satuan_id,
                 ik.kode_indikator_kinerja,
                 ik.tahun,
                 ik.keterangan,
@@ -210,6 +214,7 @@ class CapaianFakultas extends BaseController
             ->join('capaian_fakultas c', 'c.indikator_kinerja_id = ik.indikator_kinerja_id')
             ->select('
                 c.uraian,
+                c.sumber_data,
                 c.capaian,
                 c.pembagi,
                 c.hasil
@@ -237,6 +242,7 @@ class CapaianFakultas extends BaseController
                 c.triwulan_id,
                 ik.kode_indikator_kinerja,
                 ik.tahun,
+                ik.satuan_id
             ')
             ->where('c.capaian_fakultas_id', $id)
             ->get()->getRowArray();
@@ -261,12 +267,20 @@ class CapaianFakultas extends BaseController
         }
 
         for ($i = 0; $i < count($uraian); $i++) {
-            $data = [
-                'uraian' => $uraian[$i],
-                'capaian' => $this->request->getPost('capaian')[$uraian[$i]],
-                'pembagi' => $this->request->getPost('pembagi')[$uraian[$i]],
-                'hasil' => $this->request->getPost('hasil')[$uraian[$i]],
-            ];
+            if ($capaian['satuan_id'] == 1) {
+                $data = [
+                    'uraian' => $uraian[$i],
+                    'capaian' => $this->request->getPost('capaian')[$uraian[$i]],
+                    'pembagi' => $this->request->getPost('pembagi')[$uraian[$i]],
+                    'hasil' => $this->request->getPost('hasil')[$uraian[$i]],
+                ];
+            } else {
+                $data = [
+                    'uraian' => $uraian[$i],
+                    'capaian' => $this->request->getPost('capaian')[$uraian[$i]],
+                    'hasil' => $this->request->getPost('capaian')[$uraian[$i]],
+                ];
+            }
 
             if ($this->request->getFile('file')->getName() != "") {
                 $data['file'] = $nama_dokumen;

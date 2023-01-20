@@ -24,6 +24,10 @@ class CreateTableCapaianJurusan extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
+            'sumber_data' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+            ],
             'capaian' => [
                 'type'       => 'FLOAT',
                 'default'    => '0'

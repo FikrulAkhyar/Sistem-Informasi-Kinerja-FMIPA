@@ -1,5 +1,6 @@
 <?= $this->extend('layouts/dashboard.php') ?>
 <?= $this->section('page-assets') ?>
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -79,17 +80,6 @@
         </div>
 
         <div class="form-control">
-            <label for="uraian" class="label">
-                <span class="label-text label-required">Uraian</span>
-            </label>
-            <select name="uraian[]" id="uraian" multiple="multiple" data-placeholder="Masukkan uraian" class="select select-bordered" style="width: 100%;">
-                <?php foreach ($uraian as $u) : ?>
-                    <option selected><?= $u['uraian'] ?></option>
-                <?php endforeach ?>
-            </select>
-        </div>
-
-        <div class="form-control">
             <label for="cascading" class="label">
                 <span class="label-text label-required">Cascading</span>
             </label>
@@ -98,6 +88,33 @@
                     <option value="<?= $c['cascading_id'] ?>" <?= in_array($c['cascading_id'], $ik['cascading']) ? 'selected' : '' ?>><?= $c['nama_cascading'] ?></option>
                 <?php endforeach ?>
             </select>
+        </div>
+
+        <div class="form-control">
+            <label for="uraian" class="label">
+                <span class="label-text label-required">Uraian</span>
+            </label>
+            <select name="uraian[]" id="uraian" multiple="multiple" data-placeholder="Masukkan uraian" class="select select-bordered" style="width: 100%;">
+                <?php foreach ($uraian as $u) : ?>
+                    <option selected data-sumber="<?= $u['sumber_data'] ?>"><?= $u['uraian'] ?></option>
+                <?php endforeach ?>
+            </select>
+        </div>
+
+        <div class="form-control mt-3">
+            <div id="uraian-list">
+                <table class="table w-full">
+                    <thead class="sticky top-0">
+                        <tr>
+                            <th class="text-center">Uraian</th>
+                            <th class="text-center">Sumber Data</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="list">
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <button type="submit" class="btn btn-primary btn-block my-3">EDIT</button>
@@ -114,6 +131,51 @@
                 return "Ketik uraian..";
             }
         }
+    })
+
+    const uraianList = new List('uraian-list', {
+        item: `
+            <tr>
+                <td class="name text-center"></td>
+                <td>
+                    <div class="form-control">
+                        <input type="text" name="sumber_data[]" id="sumber_data" placeholder="Masukkan sumber data" class="input input-bordered sumber_data" />
+                    </div>
+                </td>
+            </tr>
+        `,
+        valueNames: [
+            'name',
+            {
+                attr: 'value',
+                name: 'sumber_data'
+            },
+        ]
+    })
+
+    $("#uraian option:selected").each(function() {
+        uraianList.add({
+            name: $(this).text(),
+            sumber_data: $(this).data('sumber'),
+        })
+
+        let uraian_name = $(this).text().replace(/ /g, "_")
+        $('#sumber_data').attr('id', `sumber_data_${uraian_name}`)
+        $(`#sumber_data_${uraian_name}`).attr('name', `sumber_data[${uraian_name}]`)
+    })
+
+    $('#uraian').on('select2:select', function(e) {
+        uraianList.add({
+            name: e.params.data.text,
+        })
+
+        let uraian_name = e.params.data.text.replace(/ /g, "_");
+        $('#sumber_data').attr('id', `sumber_data_${uraian_name}`)
+        $(`#sumber_data_${uraian_name}`).attr('name', `sumber_data[${uraian_name}]`)
+    })
+
+    $('#uraian').on('select2:unselect', function(e) {
+        uraianList.remove('name', e.params.data.text)
     })
 
     initFormAjax('#form-update-indikator', {

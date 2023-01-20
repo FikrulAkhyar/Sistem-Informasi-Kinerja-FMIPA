@@ -21,13 +21,17 @@ class CreateTableCapaianFakultas extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
+            'sumber_data' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+            ],
             'capaian' => [
                 'type'       => 'FLOAT',
                 'default'    => '0'
             ],
             'pembagi' => [
                 'type'       => 'FLOAT',
-                'default'       => '100'
+                'null'      => true
             ],
             'hasil' => [
                 'type'       => 'FLOAT',

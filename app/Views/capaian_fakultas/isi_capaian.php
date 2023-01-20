@@ -35,28 +35,32 @@
             <input type="file" name="file" class="file-input file-input-bordered file-input-primary w-full" />
         </div>
 
-        <table id="table" class="table w-full table-bordered" style="width: 100%;">
+        <table id="table" class="table w-full table-bordered" style="width: 100%;" data-satuan="<?= $ik['satuan_id'] ?>">
             <thead class="sticky top-0">
                 <tr class="text-center">
                     <th>Uraian</th>
                     <th>Capaian</th>
-                    <th>Pembagi</th>
-                    <th>Hasil</th>
+                    <?php if ($ik['satuan_id'] == 1) : ?>
+                        <th>Pembagi</th>
+                        <th>Hasil</th>
+                    <?php endif ?>
                 </tr>
             </thead>
             <tbody>
                 <?php for ($i = 0; $i < count($capaian); $i++) : ?>
                     <tr>
-                        <td><?= $capaian[$i]['uraian'] ?></td>
+                        <td><?= $capaian[$i]['uraian'] ?> ( <span class="text-error"><?= $capaian[$i]['sumber_data'] ?></span> )</td>
                         <td class="text-center">
                             <input type="number" name="capaian[<?= $capaian[$i]['uraian'] ?>]" id="capaian<?= $i ?>" class="input input-bordered lg:w-32 w-full" min="0" step="0.01" value="<?= $capaian[$i]['capaian'] ?>">
                         </td>
-                        <td class="text-center">
-                            <input type="number" name="pembagi[<?= $capaian[$i]['uraian'] ?>]" id="pembagi<?= $i ?>" class="input input-bordered lg:w-32 w-full pembagi" min="0" step="0.01" value="<?= $capaian[$i]['pembagi'] ?>">
-                        </td>
-                        <td class="text-center">
-                            <input type="text" name="hasil[<?= $capaian[$i]['uraian'] ?>]" id="hasil<?= $i ?>" class="input input-bordered lg:w-32 w-full" value="<?= $capaian[$i]['hasil'] ?>" readonly>
-                        </td>
+                        <?php if ($ik['satuan_id'] == 1) : ?>
+                            <td class="text-center">
+                                <input type="number" name="pembagi[<?= $capaian[$i]['uraian'] ?>]" id="pembagi<?= $i ?>" class="input input-bordered lg:w-32 w-full pembagi" min="0" step="0.01" value="<?= $capaian[$i]['pembagi'] ?>">
+                            </td>
+                            <td class="text-center">
+                                <input type="text" name="hasil[<?= $capaian[$i]['uraian'] ?>]" id="hasil<?= $i ?>" class="input input-bordered lg:w-32 w-full" value="<?= $capaian[$i]['hasil'] ?>" readonly>
+                            </td>
+                        <?php endif ?>
                     </tr>
                 <?php endfor ?>
             </tbody>
@@ -71,17 +75,20 @@
 <script>
     let capaian = <?= json_encode($capaian) ?>
 
-    for (let i = 0; i < capaian.length; i++) {
-        $(`#capaian${i}`).on('input', function() {
-            let hasil = parseFloat(($(`#capaian${i}`).val() / $('.pembagi').val()) * 100).toFixed(2)
-            $(`#hasil${i}`).val(hasil)
-        })
-        $(`.pembagi`).on('input', function() {
-            let pembagi = $('.pembagi').val()
-            $(`.pembagi`).val(pembagi)
-            let hasil = parseFloat(($(`#capaian${i}`).val() / $('.pembagi').val()) * 100).toFixed(2)
-            $(`#hasil${i}`).val(hasil)
-        })
+    let satuan = $('#table').data('satuan')
+    if (satuan == 1) {
+        for (let i = 0; i < capaian.length; i++) {
+            $(`#capaian${i}`).on('input', function() {
+                let hasil = parseFloat(($(`#capaian${i}`).val() / $('.pembagi').val()) * 100).toFixed(2)
+                $(`#hasil${i}`).val(hasil)
+            })
+            $(`.pembagi`).on('input', function() {
+                let pembagi = $('.pembagi').val()
+                $(`.pembagi`).val(pembagi)
+                let hasil = parseFloat(($(`#capaian${i}`).val() / $('.pembagi').val()) * 100).toFixed(2)
+                $(`#hasil${i}`).val(hasil)
+            })
+        }
     }
 
 

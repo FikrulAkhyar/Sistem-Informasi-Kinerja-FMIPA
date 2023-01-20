@@ -73,6 +73,7 @@ class IndikatorKinerja extends BaseController
 
     public function store()
     {
+        // dd($this->request->getPost());
         if (session('level') == 3) {
             return redirect()->to('/');
         }
@@ -142,13 +143,16 @@ class IndikatorKinerja extends BaseController
 
         // Insert data capaian fakultas
         $uraian = $this->request->getPost('uraian');
+        $sumber_data = $this->request->getPost('sumber_data');
         $triwulan = $this->db->table('triwulan')->get()->getResultArray();
         $k = 0;
         for ($i = 0; $i < count($uraian); $i++) {
             for ($j = 0; $j < count($triwulan); $j++) {
+                $uraian_index = str_replace(' ', '_', $uraian[$i]);
                 $data['capaian_fakultas'][$k] = [
                     'indikator_kinerja_id' => $insertID,
                     'uraian' => $uraian[$i],
+                    'sumber_data' => $sumber_data[$uraian_index],
                     'capaian' => 0,
                     'triwulan_id' => $triwulan[$j]['triwulan_id'],
                 ];
@@ -181,7 +185,7 @@ class IndikatorKinerja extends BaseController
             ->get()->getRowArray();
 
         $data['uraian'] = $this->db->table('capaian_fakultas')
-            ->select('uraian')
+            ->select('uraian, sumber_data')
             ->where('indikator_kinerja_id', $id)
             ->groupBy('uraian')
             ->get()->getResultArray();
@@ -252,6 +256,7 @@ class IndikatorKinerja extends BaseController
         $this->db->table('target_fakultas')->where('indikator_kinerja_id', $id)->update($data['target_fakultas']);
 
         // Insert data uraian
+        $sumber_data = $this->request->getPost('sumber_data');
         $new_uraian = $this->request->getPost('uraian');
         $old_uraian = array_map(function ($value) {
             return $value['uraian'];
@@ -274,9 +279,11 @@ class IndikatorKinerja extends BaseController
                         ])->delete();
                 } else {
                     for ($j = 0; $j < count($triwulan); $j++) {
+                        $uraian_index = str_replace(' ', '_', $result_uraian[$i]);
                         $data['capaian_fakultas'][$j] = [
                             'indikator_kinerja_id' => $id,
                             'uraian' => $result_uraian[$i],
+                            'sumber_data' => $sumber_data[$uraian_index],
                             'capaian' => 0,
                             'triwulan_id' => $triwulan[$j]['triwulan_id'],
                         ];
@@ -285,6 +292,16 @@ class IndikatorKinerja extends BaseController
                     $this->db->table('capaian_fakultas')->insertBatch($data['capaian_fakultas']);
                 }
             }
+        } else {
+            for ($i = 0; $i < count($new_uraian); $i++) {
+                $uraian_index = str_replace(' ', '_', $new_uraian[$i]);
+                $data['capaian_fakultas'][$i] = [
+                    'indikator_kinerja_id' => $id,
+                    'sumber_data' => $sumber_data[$uraian_index],
+                    'uraian' => $new_uraian[$i]
+                ];
+            }
+            $this->db->table('capaian_fakultas')->where('indikator_kinerja_id', $id)->updateBatch($data['capaian_fakultas'], 'uraian');
         }
 
 
@@ -590,13 +607,11 @@ class IndikatorKinerja extends BaseController
 
         $post_data = $this->request->getPost();
 
-        $uraian = array_map(function ($value) {
-            return $value['uraian'];
-        }, $this->db->table('capaian_fakultas')
-            ->select('uraian')
+        $uraian = $this->db->table('capaian_fakultas')
+            ->select('uraian, sumber_data')
             ->where('indikator_kinerja_id', $id)
             ->groupBy('uraian')
-            ->get()->getResultArray());
+            ->get()->getResultArray();
 
         $triwulan = $this->db->table('triwulan')->get()->getResultArray();
 
@@ -630,7 +645,8 @@ class IndikatorKinerja extends BaseController
                             'indikator_kinerja_id' => $id,
                             'cascading_id' => $cascading_id,
                             'jurusan_id' => $jurusan_id,
-                            'uraian' => $uraian[$k],
+                            'uraian' => $uraian[$k]['uraian'],
+                            'sumber_data' => $uraian[$k]['sumber_data'],
                             'capaian' => 0,
                             'triwulan_id' => $triwulan[$l]['triwulan_id']
                         ];
@@ -677,13 +693,11 @@ class IndikatorKinerja extends BaseController
 
         $post_data = $this->request->getPost();
 
-        $uraian = array_map(function ($value) {
-            return $value['uraian'];
-        }, $this->db->table('capaian_fakultas')
-            ->select('uraian')
+        $uraian =  $this->db->table('capaian_fakultas')
+            ->select('uraian, sumber_data')
             ->where('indikator_kinerja_id', $id)
             ->groupBy('uraian')
-            ->get()->getResultArray());
+            ->get()->getResultArray();
 
         $triwulan = $this->db->table('triwulan')->get()->getResultArray();
 
@@ -749,7 +763,8 @@ class IndikatorKinerja extends BaseController
                                     'indikator_kinerja_id' => $id,
                                     'cascading_id' => $cascading_id,
                                     'jurusan_id' => $jurusan_id,
-                                    'uraian' => $uraian[$k],
+                                    'uraian' => $uraian[$k]['uraian'],
+                                    'sumber_data' => $uraian[$k]['sumber_data'],
                                     'capaian' => 0,
                                     'triwulan_id' => $triwulan[$l]['triwulan_id']
                                 ];

@@ -257,6 +257,7 @@ class CapaianJurusan extends BaseController
                 ->join('jurusan j', 'j.jurusan_id = cj.jurusan_id')
                 ->select('
                     cj.uraian,
+                    cj.sumber_data,
                     cj.capaian,
                     cj.pembagi,
                     cj.hasil,
