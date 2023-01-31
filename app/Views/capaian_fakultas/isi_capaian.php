@@ -49,7 +49,7 @@
             <tbody>
                 <?php for ($i = 0; $i < count($capaian); $i++) : ?>
                     <tr>
-                        <td><?= $capaian[$i]['uraian'] ?> ( <span class="text-error"><?= $capaian[$i]['sumber_data'] ?></span> )</td>
+                        <td><?= $capaian[$i]['uraian'] ?> <?= $capaian[$i]['sumber_data'] != null ? "( <span class='text-error'>" . $capaian[$i]['sumber_data'] . "</span> )" : "" ?> </td>
                         <td class="text-center">
                             <input type="number" name="capaian[<?= $capaian[$i]['uraian'] ?>]" id="capaian<?= $i ?>" class="input input-bordered lg:w-32 w-full" min="0" step="0.01" value="<?= $capaian[$i]['capaian'] ?>">
                         </td>

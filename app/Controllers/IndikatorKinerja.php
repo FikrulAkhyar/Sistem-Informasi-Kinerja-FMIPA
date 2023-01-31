@@ -835,7 +835,8 @@ class IndikatorKinerja extends BaseController
                                         'indikator_kinerja_id' => $id,
                                         'cascading_id' => $cascading_id,
                                         'jurusan_id' => $jurusan_id,
-                                        'uraian' => $uraian[$k],
+                                        'uraian' => $uraian[$k]['uraian'],
+                                        'sumber_data' => $uraian[$k]['sumber_data'],
                                         'capaian' => 0,
                                         'triwulan_id' => $triwulan[$l]['triwulan_id']
                                     ];

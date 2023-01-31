@@ -52,7 +52,7 @@
 
                         <?php for ($j = 0; $j < count($capaian[$i]['capaian']); $j++) : ?>
                     <tr>
-                        <td><?= $capaian[$i]['capaian'][$j]['uraian'] ?></td>
+                        <td><?= $capaian[$i]['capaian'][$j]['uraian'] ?> <?= $capaian[$i]['capaian'][$j]['sumber_data'] != null ? "( <span class='text-error'>" . $capaian[$i]['capaian'][$j]['sumber_data'] . "</span> )" : "" ?> </td>
                         <td class="text-center">
                             <input type="number" name="capaian[<?= $capaian[$i]['cascading_id'] ?>][<?= $capaian[$i]['capaian'][$j]['uraian'] ?>]" id="capaian_<?= $i . '_' . $j ?>" class="input input-bordered lg:w-32 w-full" min="0" step="0.01" value="<?= $capaian[$i]['capaian'][$j]['capaian'] ?>">
                         </td>
