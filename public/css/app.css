@@ -3751,6 +3751,9 @@ button.toast-close-button {
   .lg\:col-span-3{
     grid-column: span 3 / span 3;
   }
+  .lg\:col-span-8{
+    grid-column: span 8 / span 8;
+  }
   .lg\:m-auto{
     margin: auto;
   }
