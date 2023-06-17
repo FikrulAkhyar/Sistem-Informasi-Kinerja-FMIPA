@@ -96,7 +96,7 @@
                         </a>
                     </li>
 
-                    <li class="<?= strpos(current_url(), 'indikatorKinerja') ? 'active' : '' ?>">
+                    <li class="<?= strpos(current_url(), 'indikatorKinerja') ? 'active' : '' ?> <?= in_array('/indikatorKinerja', session('menu_akses')) ? '' : 'hidden' ?>">
                         <a class="flex justify-between" href="<?= base_url('indikatorKinerja') ?>">
                             <div class="flex justify-start">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -113,7 +113,7 @@
                         </a>
                     </li>
 
-                    <li class="<?= strpos(current_url(), 'capaianFakultas') ? 'active' : '' ?>">
+                    <li class="<?= strpos(current_url(), 'capaianFakultas') ? 'active' : '' ?> <?= in_array('/capaianFakultas', session('menu_akses')) ? '' : 'hidden' ?>">
                         <a class="flex justify-between" href="<?= base_url('capaianFakultas') ?>">
                             <div class="flex justify-start">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -130,7 +130,7 @@
                         </a>
                     </li>
 
-                    <li class="<?= strpos(current_url(), 'capaianJurusan') ? 'active' : '' ?>">
+                    <li class="<?= strpos(current_url(), 'capaianJurusan') ? 'active' : '' ?> <?= in_array('/capaianJurusan', session('menu_akses')) ? '' : 'hidden' ?>">
                         <a class="flex justify-between" href="<?= base_url('capaianJurusan') ?>">
                             <div class="flex justify-start">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -147,7 +147,7 @@
                         </a>
                     </li>
 
-                    <li class="<?= strpos(current_url(), 'sasaran') ? 'active' : '' ?>">
+                    <li class="<?= strpos(current_url(), 'sasaran') ? 'active' : '' ?> <?= in_array('/sasaran', session('menu_akses')) ? '' : 'hidden' ?>">
                         <a class="flex justify-between" href="<?= base_url('sasaran') ?>">
                             <div class="flex justify-start">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -164,7 +164,7 @@
                         </a>
                     </li>
 
-                    <li class="<?= strpos(current_url(), 'level') ? 'active' : '' ?>">
+                    <li class="<?= strpos(current_url(), 'level') ? 'active' : '' ?> <?= in_array('/level', session('menu_akses')) ? '' : 'hidden' ?>">
                         <a class="flex justify-between" href="<?= base_url('level') ?>">
                             <div class="flex justify-start">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -181,7 +181,7 @@
                         </a>
                     </li>
 
-                    <li class="<?= strpos(current_url(), 'pengguna') ? 'active' : '' ?>">
+                    <li class="<?= strpos(current_url(), 'pengguna') ? 'active' : '' ?> <?= in_array('/pengguna', session('menu_akses')) ? '' : 'hidden' ?>">
                         <a class="flex justify-between" href="<?= base_url('pengguna') ?>">
                             <div class="flex justify-start">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

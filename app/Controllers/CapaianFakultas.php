@@ -17,6 +17,10 @@ class CapaianFakultas extends BaseController
 
     public function index()
     {
+        if (!in_array('/capaianFakultas', session('menu_akses'))) {
+            return redirect()->to('/');
+        }
+
         $data['tahun'] = $this->db->table('indikator_kinerja')
             ->select('tahun')
             ->groupBy('tahun')
@@ -47,6 +51,7 @@ class CapaianFakultas extends BaseController
                 c.capaian_fakultas_id,
                 ik.indikator_kinerja_id,
                 ik.kode_indikator_kinerja,
+                ik.level_akses,
                 s.nama_satuan,
                 t.triwulan_satu as target,
                 SUM(c.hasil) as capaian,
@@ -57,6 +62,7 @@ class CapaianFakultas extends BaseController
                 c.capaian_fakultas_id,
                 ik.indikator_kinerja_id,
                 ik.kode_indikator_kinerja,
+                ik.level_akses,
                 s.nama_satuan,
                 t.triwulan_dua as target,
                 SUM(c.hasil) as capaian,
@@ -67,6 +73,7 @@ class CapaianFakultas extends BaseController
                 c.capaian_fakultas_id,
                 ik.indikator_kinerja_id,
                 ik.kode_indikator_kinerja,
+                ik.level_akses,
                 s.nama_satuan,
                 t.triwulan_tiga as target,
                 SUM(c.hasil) as capaian,
@@ -77,6 +84,7 @@ class CapaianFakultas extends BaseController
                 c.capaian_fakultas_id,
                 ik.indikator_kinerja_id,
                 ik.kode_indikator_kinerja,
+                ik.level_akses,
                 s.nama_satuan,
                 t.triwulan_empat as target,
                 SUM(c.hasil) as capaian,
@@ -213,7 +221,6 @@ class CapaianFakultas extends BaseController
             ])
             ->get()->getResultArray();
 
-        // dd($data);
         return view('capaian_fakultas/isi_capaian', $data);
     }
 
@@ -257,12 +264,14 @@ class CapaianFakultas extends BaseController
                     'capaian' => $this->request->getPost('capaian')[$uraian[$i]],
                     'pembagi' => $this->request->getPost('pembagi')[$uraian[$i]],
                     'hasil' => $this->request->getPost('hasil')[$uraian[$i]],
+                    'updated_by' => session('nama')
                 ];
             } else {
                 $data = [
                     'uraian' => $uraian[$i],
                     'capaian' => $this->request->getPost('capaian')[$uraian[$i]],
                     'hasil' => $this->request->getPost('capaian')[$uraian[$i]],
+                    'updated_by' => session('nama')
                 ];
             }
 

@@ -91,7 +91,6 @@
             {
                 data: 'indikator_kinerja_id',
                 searchable: false,
-                orderable: false,
                 width: '25%',
                 render: function(data, _, row) {
                     return `

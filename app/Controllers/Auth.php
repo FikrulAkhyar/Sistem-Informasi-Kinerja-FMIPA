@@ -22,6 +22,7 @@ class Auth extends BaseController
             if (session('isLoggedIn') == TRUE) {
                 return redirect()->to('/');
             }
+
             return view('auth/login');
         } else if ($method === 'POST') {
             $data = [

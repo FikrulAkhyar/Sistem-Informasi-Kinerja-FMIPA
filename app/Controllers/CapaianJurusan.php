@@ -17,6 +17,10 @@ class CapaianJurusan extends BaseController
 
     public function index()
     {
+        if (!in_array('/capaianJurusan', session('menu_akses'))) {
+            return redirect()->to('/');
+        }
+
         $data['tahun'] = $this->db->table('indikator_kinerja')
             ->select('tahun')
             ->groupBy('tahun')
@@ -55,6 +59,7 @@ class CapaianJurusan extends BaseController
                 c.capaian_jurusan_id,
                 ik.indikator_kinerja_id,
                 ik.kode_indikator_kinerja,
+                ik.level_akses,
                 s.nama_satuan,
                 t.triwulan_satu as target,
                 SUM(c.hasil) as capaian,
@@ -65,6 +70,7 @@ class CapaianJurusan extends BaseController
                 c.capaian_jurusan_id,
                 ik.indikator_kinerja_id,
                 ik.kode_indikator_kinerja,
+                ik.level_akses,
                 s.nama_satuan,
                 t.triwulan_dua as target,
                 SUM(c.hasil) as capaian,
@@ -75,6 +81,7 @@ class CapaianJurusan extends BaseController
                 c.capaian_jurusan_id,
                 ik.indikator_kinerja_id,
                 ik.kode_indikator_kinerja,
+                ik.level_akses,
                 s.nama_satuan,
                 t.triwulan_tiga as target,
                 SUM(c.hasil) as capaian,
@@ -85,6 +92,7 @@ class CapaianJurusan extends BaseController
                 c.capaian_jurusan_id,
                 ik.indikator_kinerja_id,
                 ik.kode_indikator_kinerja,
+                ik.level_akses,
                 s.nama_satuan,
                 t.triwulan_empat as target,
                 SUM(c.hasil) as capaian,
@@ -329,6 +337,7 @@ class CapaianJurusan extends BaseController
                     'capaian' => $this->request->getPost('capaian')[$cascading[$i]][$uraian[$j]],
                     'pembagi' => $this->request->getPost('pembagi')[$cascading[$i]][$uraian[$j]],
                     'hasil' => $this->request->getPost('hasil')[$cascading[$i]][$uraian[$j]],
+                    'updated_by' => session('nama')
                 ];
 
                 if ($this->request->getFile('file')->getName() != "") {
@@ -345,27 +354,27 @@ class CapaianJurusan extends BaseController
             }
         }
 
-        // for ($i = 0; $i < count($uraian); $i++) {
-        //     $capaian_fakultas = $this->db->table('capaian_jurusan')
-        //         ->select('
-        //             uraian,
-        //             SUM(capaian) as capaian,
-        //             SUM(pembagi) as pembagi,
-        //             SUM(hasil) as hasil,
-        //         ')
-        //         ->where([
-        //             'indikator_kinerja_id' => $capaian['indikator_kinerja_id'],
-        //             'triwulan_id' => $capaian['triwulan_id'],
-        //             'uraian' => $uraian[$i]
-        //         ])
-        //         ->get()->getRowArray();
+        for ($i = 0; $i < count($uraian); $i++) {
+            $capaian_fakultas = $this->db->table('capaian_jurusan')
+                ->select('
+                    uraian,
+                    SUM(capaian) as capaian,
+                    pembagi,
+                    SUM(hasil) as hasil,
+                ')
+                ->where([
+                    'indikator_kinerja_id' => $capaian['indikator_kinerja_id'],
+                    'triwulan_id' => $capaian['triwulan_id'],
+                    'uraian' => $uraian[$i]
+                ])
+                ->get()->getRowArray();
 
-        //     $this->db->table('capaian_fakultas')->where([
-        //         'indikator_kinerja_id' => $capaian['indikator_kinerja_id'],
-        //         'triwulan_id' => $capaian['triwulan_id'],
-        //         'uraian' => $uraian[$i],
-        //     ])->update($capaian_fakultas);
-        // }
+            $this->db->table('capaian_fakultas')->where([
+                'indikator_kinerja_id' => $capaian['indikator_kinerja_id'],
+                'triwulan_id' => $capaian['triwulan_id'],
+                'uraian' => $uraian[$i],
+            ])->update($capaian_fakultas);
+        }
 
         $response = [
             'message' => 'Berhasil mengisi capaian indikator kinerja'

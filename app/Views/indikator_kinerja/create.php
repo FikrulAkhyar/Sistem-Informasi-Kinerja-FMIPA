@@ -7,7 +7,7 @@
 <div class="lg:text-2xl text-xl font-bold">Tambah Indikator Kinerja</div>
 
 <div class="mx-auto mt-5 mb-10">
-    <form action="<?= base_url('indikatorKinerja/store') ?>" id="form-add-indikator" method="POST" show-validation>
+    <form action="<?= base_url('indikatorKinerja/store') ?>" id="form-add-indikator" method="POST" enctype="multipart/form-data" show-validation>
         <div class="form-control">
             <label for="sasaran" class="label">
                 <span class="label-text label-required">Sasaran</span>

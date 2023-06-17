@@ -19,6 +19,10 @@ class IndikatorKinerja extends BaseController
 
     public function index()
     {
+        if (!in_array('/indikatorKinerja', session('menu_akses'))) {
+            return redirect()->to('/');
+        }
+
         $data['tahun'] = $this->db->table('indikator_kinerja')
             ->select('tahun')
             ->groupBy('tahun')
@@ -85,7 +89,7 @@ class IndikatorKinerja extends BaseController
                 'rules' => 'required',
             ],
             'file_pendukung' => [
-                'rules' => 'uploaded[file_pendukung]|mime_in[file_pendukung,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet]|max_size[file_pendukung,2048]',
+                'rules' => 'uploaded[file_pendukung]|mime_in[file,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/pdf]|max_size[file_pendukung,2048]',
             ],
             'level_akses' => [
                 'rules' => 'required',
@@ -220,9 +224,6 @@ class IndikatorKinerja extends BaseController
             'cascading' => [
                 'rules' => 'required',
             ],
-            'file_pendukung' => [
-                'rules' => 'uploaded[file_pendukung]|mime_in[file_pendukung,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet]|max_size[file_pendukung,2048]',
-            ],
             'level_akses' => [
                 'rules' => 'required',
             ],
@@ -241,7 +242,6 @@ class IndikatorKinerja extends BaseController
             'keterangan' => $this->request->getPost('keterangan'),
             'satuan_id' => $this->request->getPost('satuan'),
             'cascading' => implode(',', $this->request->getPost('cascading')),
-            'file_pendukung' => $this->request->getPost('file_pendukung'),
             'level_akses' => implode(',', $this->request->getPost('level_akses')),
         ];
 

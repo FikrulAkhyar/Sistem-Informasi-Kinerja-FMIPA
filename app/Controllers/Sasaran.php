@@ -17,6 +17,10 @@ class Sasaran extends BaseController
 
     public function index()
     {
+        if (!in_array('/sasaran', session('menu_akses'))) {
+            return redirect()->to('/');
+        }
+
         return view('sasaran/index');
     }
 

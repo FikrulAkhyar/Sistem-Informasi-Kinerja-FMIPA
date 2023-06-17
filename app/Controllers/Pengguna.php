@@ -17,6 +17,10 @@ class Pengguna extends BaseController
 
     public function index()
     {
+        if (!in_array('/pengguna', session('menu_akses'))) {
+            return redirect()->to('/');
+        }
+
         return view('pengguna/index');
     }
 

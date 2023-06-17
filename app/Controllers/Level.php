@@ -17,6 +17,10 @@ class Level extends BaseController
 
     public function index()
     {
+        if (!in_array('/level', session('menu_akses'))) {
+            return redirect()->to('/');
+        }
+
         return view('level/index');
     }
 
