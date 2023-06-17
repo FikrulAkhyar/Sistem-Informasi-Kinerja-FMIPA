@@ -31,7 +31,7 @@ class CreateTableCapaianFakultas extends Migration
             ],
             'pembagi' => [
                 'type'       => 'FLOAT',
-                'null'      => true
+                'default'    => '100'
             ],
             'hasil' => [
                 'type'       => 'FLOAT',

@@ -37,6 +37,9 @@ class CreateTablePengguna extends Migration
         $this->forge->addForeignKey('jurusan_id', 'jurusan', 'jurusan_id');
         $this->forge->addForeignKey('level_id', 'level', 'level_id');
         $this->forge->createTable('pengguna');
+
+        $seeder = \Config\Database::seeder();
+        $seeder->call('PenggunaSeeder');
     }
 
     public function down()

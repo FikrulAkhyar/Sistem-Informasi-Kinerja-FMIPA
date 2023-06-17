@@ -96,13 +96,13 @@
                         </a>
                     </li>
 
-                    <li class="<?= strpos(current_url(), 'pengguna') ? 'active' : '' ?> <?= session('level') != 1 ? 'hidden' : '' ?>">
-                        <a class="flex justify-between" href="<?= base_url('pengguna') ?>">
+                    <li class="<?= strpos(current_url(), 'indikatorKinerja') ? 'active' : '' ?>">
+                        <a class="flex justify-between" href="<?= base_url('indikatorKinerja') ?>">
                             <div class="flex justify-start">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
+                                    <path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"></path>
                                 </svg>
-                                <span class="pl-2 text-sm mt-1">Kelola Pengguna</span>
+                                <span class="pl-2 text-sm mt-1">Indikator Kinerja</span>
                             </div>
 
                             <div>
@@ -113,7 +113,7 @@
                         </a>
                     </li>
 
-                    <li class="<?= strpos(current_url(), 'capaianFakultas') ? 'active' : '' ?> <?= session('level') == 3 ? 'hidden' : '' ?>">
+                    <li class="<?= strpos(current_url(), 'capaianFakultas') ? 'active' : '' ?>">
                         <a class="flex justify-between" href="<?= base_url('capaianFakultas') ?>">
                             <div class="flex justify-start">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -147,13 +147,47 @@
                         </a>
                     </li>
 
-                    <li class="<?= strpos(current_url(), 'indikatorKinerja') ? 'active' : '' ?> <?= session('level') == 3 ? 'hidden' : '' ?>">
-                        <a class="flex justify-between" href="<?= base_url('indikatorKinerja') ?>">
+                    <li class="<?= strpos(current_url(), 'sasaran') ? 'active' : '' ?>">
+                        <a class="flex justify-between" href="<?= base_url('sasaran') ?>">
                             <div class="flex justify-start">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"></path>
+                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
                                 </svg>
-                                <span class="pl-2 text-sm mt-1">Indikator Kinerja</span>
+                                <span class="pl-2 text-sm mt-1">Kelola Sasaran</span>
+                            </div>
+
+                            <div>
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="<?= strpos(current_url(), 'level') ? 'active' : '' ?>">
+                        <a class="flex justify-between" href="<?= base_url('level') ?>">
+                            <div class="flex justify-start">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
+                                </svg>
+                                <span class="pl-2 text-sm mt-1">Kelola Level</span>
+                            </div>
+
+                            <div>
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="<?= strpos(current_url(), 'pengguna') ? 'active' : '' ?>">
+                        <a class="flex justify-between" href="<?= base_url('pengguna') ?>">
+                            <div class="flex justify-start">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
+                                </svg>
+                                <span class="pl-2 text-sm mt-1">Kelola Pengguna</span>
                             </div>
 
                             <div>

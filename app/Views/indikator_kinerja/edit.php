@@ -79,6 +79,37 @@
             <textarea class="textarea textarea-bordered" name="keterangan" id="keterangan" placeholder="Masukkan keterangan IK untuk fakultas"><?= $ik['keterangan'] ?></textarea>
         </div>
 
+        <div class="grid grid-cols-12 gap-3">
+            <div class="col-span-12 lg:col-span-8">
+                <div class="form-control">
+                    <label for="file_pendukung" class="label">
+                        <span class="label-text">File Format Pendukung</span>
+                    </label>
+                    <input type="file" name="file_pendukung" id="file_pendukung" class="file-input file-input-bordered file-input-primary" />
+                </div>
+            </div>
+            <div class="col-span-12 lg:col-span-4">
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Lihat File Sebelumnya</span>
+                    </label>
+                    <a href="<?= base_url('dokumen/' . $ik['file_pendukung']) ?>" class="btn btn-primary">Lihat file</a>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="form-control">
+            <label for="level_akses" class="label">
+                <span class="label-text label-required">Level Akses</span>
+            </label>
+            <select name="level_akses[]" id="level_akses" multiple="multiple" data-placeholder="Pilih Level" class="select select-bordered" style="width: 100%;">
+                <?php foreach ($level as $l) : ?>
+                    <option value="<?= $l['level_id'] ?>" <?= in_array($l['level_id'], $ik['level_akses']) ? 'selected' : '' ?>><?= $l['nama_level'] ?></option>
+                <?php endforeach ?>
+            </select>
+        </div>
+
         <div class="form-control">
             <label for="cascading" class="label">
                 <span class="label-text label-required">Cascading</span>
@@ -123,7 +154,7 @@
 </div>
 
 <script>
-    $('#sasaran, #satuan, #cascading').select2()
+    $('#sasaran, #satuan, #cascading, #level_akses').select2()
     $('#uraian').select2({
         tags: true,
         language: {

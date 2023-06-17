@@ -110,10 +110,10 @@
             {
                 data: 'indikator_kinerja_id',
                 searchable: false,
-                // orderable: false,
+                orderable: false,
                 width: '25%',
                 render: function(data, _, row) {
-                    let berkas = row.file != null ? `<button data-reference="${row.file}" class="btn btn-error btn-sm btn-unduh-modal text-white" data-tippy-content="Unduh Berkas Capaian">
+                    let berkas = row.file != null ? `<button data-reference="${row.file}" class="btn btn-error btn-sm btn-unduh-dokumen text-white" data-tippy-content="Unduh Berkas Capaian">
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"></path>
                                 </svg>
@@ -154,6 +154,12 @@
 
     $('#filter_triwulan').on('change', function() {
         table.ajax.url(`${BASE_URL}/capaianJurusan/datatable?tahun=${$('#filter_tahun').val()}&jurusan=${$('#filter_jurusan').val()}&triwulan=${$('#filter_triwulan').val()}`).load()
+    })
+
+    $(document).on('click', '.btn-unduh-dokumen', function() {
+        const ref = $(this).data('reference')
+
+        location.href = `${BASE_URL}/dokumen/${ref}`
     })
 
     $(document).on('click', '.btn-detail-modal', function() {

@@ -34,7 +34,15 @@ class CreateTableIndikatorKinerja extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
                 'null'      => true
-            ]
+            ],
+            'file_pendukung' => [
+                'type'       => 'TEXT',
+                'null'      => true
+            ],
+            'level_akses' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+            ],
         ]);
         $this->forge->addKey('indikator_kinerja_id', true);
         $this->forge->addForeignKey('sasaran_id', 'sasaran', 'sasaran_id');

@@ -17,17 +17,11 @@ class Pengguna extends BaseController
 
     public function index()
     {
-        if (session('level') != 1) {
-            return redirect()->to('/');
-        }
         return view('pengguna/index');
     }
 
     public function datatable()
     {
-        if (session('level') != 1) {
-            return redirect()->to('/');
-        }
 
         $builder = $this->db->table('pengguna p')
             ->join('level l', 'l.level_id = p.level_id')
@@ -46,9 +40,6 @@ class Pengguna extends BaseController
 
     public function modal_create()
     {
-        if (session('level') != 1) {
-            return redirect()->to('/');
-        }
 
         $data['level'] = $this->db->table('level')->get()->getResultArray();
         $data['jurusan'] = $this->db->table('jurusan')->get()->getResultArray();
@@ -59,9 +50,6 @@ class Pengguna extends BaseController
 
     public function store()
     {
-        if (session('level') != 1) {
-            return redirect()->to('/');
-        }
 
         $data = [
             'nama' => $this->request->getPost('nama'),
@@ -90,9 +78,6 @@ class Pengguna extends BaseController
 
     public function modal_edit($id)
     {
-        if (session('level') != 1) {
-            return redirect()->to('/');
-        }
 
         $data['pengguna'] = $this->db->table('pengguna')->where('pengguna_id', $id)->get()->getRowArray();
         $data['level'] = $this->db->table('level')->get()->getResultArray();
@@ -106,9 +91,6 @@ class Pengguna extends BaseController
 
     public function update($id)
     {
-        if (session('level') != 1) {
-            return redirect()->to('/');
-        }
 
         $data = [
             'nama' => $this->request->getPost('nama'),
@@ -136,9 +118,6 @@ class Pengguna extends BaseController
 
     public function modal_delete($id)
     {
-        if (session('level') != 1) {
-            return redirect()->to('/');
-        }
 
         $view = \Config\Services::renderer();
         $response['html'] = $view->setVar('id', $id)->render('pengguna/components/modal_delete');
@@ -147,9 +126,6 @@ class Pengguna extends BaseController
 
     public function delete($id)
     {
-        if (session('level') != 1) {
-            return redirect()->to('/');
-        }
 
         if ($this->db->table('pengguna')->where('pengguna_id', $id)->delete() === FALSE) {
             $response = [
@@ -167,9 +143,6 @@ class Pengguna extends BaseController
 
     public function modal_edit_password($id)
     {
-        if (session('level') != 1) {
-            return redirect()->to('/');
-        }
 
         $view = \Config\Services::renderer();
         $response['html'] = $view->setVar('id', $id)
@@ -179,9 +152,6 @@ class Pengguna extends BaseController
 
     public function update_password($id)
     {
-        if (session('level') != 1) {
-            return redirect()->to('/');
-        }
 
         $password = $this->request->getPost('password');
         $confirm_password = $this->request->getPost('confirm_password');

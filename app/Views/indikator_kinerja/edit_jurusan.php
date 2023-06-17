@@ -118,22 +118,22 @@
                 <td class="name text-center"></td>
                 <td>
                     <div class="form-control text-center">
-                        <input type="number" name="tw1[${jurusan_id}]" id="tw1" class="tw1 input input-bordered w-full" min="0" value="0" required>
+                        <input type="number" name="tw1[${jurusan_id}]" id="tw1" class="tw1 input input-bordered w-full" min="0" step="0.01" value="0" required>
                     </div>
                 </td>
                 <td>
                     <div class="form-control">
-                        <input type="number" name="tw2[${jurusan_id}]" id="tw2"  class="tw2 input input-bordered w-full" min="0" value="0" required>
+                        <input type="number" name="tw2[${jurusan_id}]" id="tw2"  class="tw2 input input-bordered w-full" min="0" step="0.01" value="0" required>
                     </div>
                 </td>
                 <td>
                     <div class="form-control">
-                        <input type="number" name="tw3[${jurusan_id}]" id="tw3"  class="tw3 input input-bordered w-full" min="0" value="0" required>
+                        <input type="number" name="tw3[${jurusan_id}]" id="tw3"  class="tw3 input input-bordered w-full" min="0" step="0.01" value="0" required>
                     </div>
                 </td>
                 <td>
                     <div class="form-control">
-                        <input type="number" name="tw4[${jurusan_id}]" id="tw4"  class="tw4 input input-bordered w-full" min="0" value="0" required>
+                        <input type="number" name="tw4[${jurusan_id}]" id="tw4"  class="tw4 input input-bordered w-full" min="0" step="0.01" value="0" required>
                     </div>
                 </td>
             </tr>
@@ -232,22 +232,22 @@
                 <td class="name text-center"></td>
                 <td>
                     <div class="form-control text-center">
-                        <input type="number" name="tw1[${jurusan_id}]" id="tw1" class="input input-bordered w-full" min="0" value="0" required>
+                        <input type="number" name="tw1[${jurusan_id}]" id="tw1" class="input input-bordered w-full" min="0" step="0.01" value="0" required>
                     </div>
                 </td>
                 <td>
                     <div class="form-control">
-                        <input type="number" name="tw2[${jurusan_id}]" id="tw2"  class="input input-bordered w-full" min="0" value="0" required>
+                        <input type="number" name="tw2[${jurusan_id}]" id="tw2"  class="input input-bordered w-full" min="0" step="0.01" value="0" required>
                     </div>
                 </td>
                 <td>
                     <div class="form-control">
-                        <input type="number" name="tw3[${jurusan_id}]" id="tw3"  class="input input-bordered w-full" min="0" value="0" required>
+                        <input type="number" name="tw3[${jurusan_id}]" id="tw3"  class="input input-bordered w-full" min="0" step="0.01" value="0" required>
                     </div>
                 </td>
                 <td>
                     <div class="form-control">
-                        <input type="number" name="tw4[${jurusan_id}]" id="tw4"  class="input input-bordered w-full" min="0" value="0" required>
+                        <input type="number" name="tw4[${jurusan_id}]" id="tw4"  class="input input-bordered w-full" min="0" step="0.01" value="0" required>
                     </div>
                 </td>
             </tr>

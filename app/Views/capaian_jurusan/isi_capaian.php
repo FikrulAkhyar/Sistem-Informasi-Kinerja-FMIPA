@@ -28,11 +28,23 @@
             </div>
         </div>
 
-        <div class="form-control w-full my-2">
-            <label class="label">
-                <span class="label-text">Upload Dokumen Capaian</span>
-            </label>
-            <input type="file" name="file" class="file-input file-input-bordered file-input-primary w-full" />
+        <div class="grid grid-cols-12 gap-3 my-2">
+            <div class="col-span-12 lg:col-span-8">
+                <div class="form-control w-full">
+                    <label class="label">
+                        <span class="label-text">Upload File Capaian</span>
+                    </label>
+                    <input type="file" name="file" class="file-input file-input-bordered file-input-primary w-full" />
+                </div>
+            </div>
+            <div class="col-span-12 lg:col-span-4">
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Unduh File Format Pendukung</span>
+                    </label>
+                    <a href="<?= base_url('dokumen/' . $ik['file_pendukung']) ?>" class="btn btn-primary">Unduh file</a>
+                </div>
+            </div>
         </div>
 
         <table id="table" class="table w-full table-bordered" style="width: 100%;">
@@ -86,7 +98,6 @@
             })
             $(`.pembagi`).on('input', function() {
                 let pembagi = $('.pembagi').val()
-                $(`.pembagi`).val(pembagi)
                 let hasil = parseFloat(($(`#capaian_${i}_${j}`).val() / $(`#pembagi_${i}_${j}`).val()) * 100).toFixed(2)
                 $(`#hasil_${i}_${j}`).val(hasil)
             })

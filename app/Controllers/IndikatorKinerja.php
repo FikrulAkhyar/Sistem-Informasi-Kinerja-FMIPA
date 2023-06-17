@@ -19,10 +19,6 @@ class IndikatorKinerja extends BaseController
 
     public function index()
     {
-        if (session('level') == 3) {
-            return redirect()->to('/');
-        }
-
         $data['tahun'] = $this->db->table('indikator_kinerja')
             ->select('tahun')
             ->groupBy('tahun')
@@ -34,10 +30,6 @@ class IndikatorKinerja extends BaseController
 
     public function datatable()
     {
-        if (session('level') == 3) {
-            return redirect()->to('/');
-        }
-
         $tahun = $this->request->getGet('tahun');
 
         $builder = $this->db->table('indikator_kinerja i')
@@ -60,24 +52,16 @@ class IndikatorKinerja extends BaseController
 
     public function create()
     {
-        if (session('level') == 3) {
-            return redirect()->to('/');
-        }
-
         $data['sasaran'] = $this->db->table('sasaran')->get()->getResultArray();
         $data['satuan'] = $this->db->table('satuan')->get()->getResultArray();
         $data['cascading'] = $this->db->table('cascading')->where('is_jurusan', 0)->get()->getResultArray();
+        $data['level'] = $this->db->table('level')->get()->getResultArray();
 
         return view('indikator_kinerja/create', $data);
     }
 
     public function store()
     {
-        // dd($this->request->getPost());
-        if (session('level') == 3) {
-            return redirect()->to('/');
-        }
-
         $rules = [
             'sasaran' => [
                 'rules' => 'required',
@@ -100,6 +84,12 @@ class IndikatorKinerja extends BaseController
             'cascading' => [
                 'rules' => 'required',
             ],
+            'file_pendukung' => [
+                'rules' => 'uploaded[file_pendukung]|mime_in[file_pendukung,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet]|max_size[file_pendukung,2048]',
+            ],
+            'level_akses' => [
+                'rules' => 'required',
+            ],
         ];
 
         if (!($this->validate($rules))) {
@@ -118,7 +108,22 @@ class IndikatorKinerja extends BaseController
             'keterangan' => $this->request->getPost('keterangan'),
             'satuan_id' => $this->request->getPost('satuan'),
             'cascading' => implode(',', $this->request->getPost('cascading')),
+            'file_pendukung' => $this->request->getPost('file_pendukung'),
+            'level_akses' => implode(',', $this->request->getPost('level_akses')),
         ];
+
+        if ($this->request->getFile('file_pendukung')->getName() != "") {
+            $uploadDir = $_SERVER["DOCUMENT_ROOT"] . '/dokumen/';
+
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+
+            $nama_dokumen = $data['indikator_kinerja']['kode_indikator_kinerja'] . '_format.' . $this->request->getFile('file_pendukung')->getExtension();
+            file_put_contents($uploadDir . $nama_dokumen, file_get_contents($this->request->getFile('file_pendukung')), FILE_USE_INCLUDE_PATH);
+
+            $data['indikator_kinerja']['file_pendukung'] = $nama_dokumen;
+        }
 
         if ($this->db->table('indikator_kinerja')->insert($data['indikator_kinerja']) === FALSE) {
             $response = [
@@ -171,10 +176,6 @@ class IndikatorKinerja extends BaseController
 
     public function edit($id)
     {
-        if (session('level') == 3) {
-            return redirect()->to('/');
-        }
-
         $data['id'] = $id;
         $data['ik'] = $this->db->table('indikator_kinerja')
             ->where('indikator_kinerja_id', $id)
@@ -191,20 +192,18 @@ class IndikatorKinerja extends BaseController
             ->get()->getResultArray();
 
         $data['ik']['cascading'] = explode(',', $data['ik']['cascading']);
+        $data['ik']['level_akses'] = explode(',', $data['ik']['level_akses']);
 
         $data['sasaran'] = $this->db->table('sasaran')->get()->getResultArray();
         $data['satuan'] = $this->db->table('satuan')->get()->getResultArray();
         $data['cascading'] = $this->db->table('cascading')->where('is_jurusan', 0)->get()->getResultArray();
+        $data['level'] = $this->db->table('level')->get()->getResultArray();
 
         return view('indikator_kinerja/edit', $data);
     }
 
     public function update($id)
     {
-        if (session('level') == 3) {
-            return redirect()->to('/');
-        }
-
         $rules = [
             'sasaran' => [
                 'rules' => 'required',
@@ -219,6 +218,12 @@ class IndikatorKinerja extends BaseController
                 'rules' => 'required',
             ],
             'cascading' => [
+                'rules' => 'required',
+            ],
+            'file_pendukung' => [
+                'rules' => 'uploaded[file_pendukung]|mime_in[file_pendukung,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet]|max_size[file_pendukung,2048]',
+            ],
+            'level_akses' => [
                 'rules' => 'required',
             ],
         ];
@@ -236,7 +241,23 @@ class IndikatorKinerja extends BaseController
             'keterangan' => $this->request->getPost('keterangan'),
             'satuan_id' => $this->request->getPost('satuan'),
             'cascading' => implode(',', $this->request->getPost('cascading')),
+            'file_pendukung' => $this->request->getPost('file_pendukung'),
+            'level_akses' => implode(',', $this->request->getPost('level_akses')),
         ];
+
+        if ($this->request->getFile('file_pendukung')->getName() != "") {
+            $uploadDir = $_SERVER["DOCUMENT_ROOT"] . '/dokumen/';
+
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+
+            $ik = $this->db->table('indikator_kinerja')->where('indikator_kinerja_id', $id)->get()->getRowArray();
+            $nama_dokumen = $ik['kode_indikator_kinerja'] . '_format.' . $this->request->getFile('file_pendukung')->getExtension();
+            file_put_contents($uploadDir . $nama_dokumen, file_get_contents($this->request->getFile('file_pendukung')), FILE_USE_INCLUDE_PATH);
+
+            $data['file_pendukung'] = $nama_dokumen;
+        }
 
         if ($this->db->table('indikator_kinerja')->where('indikator_kinerja_id', $id)->update($data) === FALSE) {
             $response = [
@@ -314,10 +335,6 @@ class IndikatorKinerja extends BaseController
 
     public function modal_delete($id)
     {
-        if (session('level') == 3) {
-            return redirect()->to('/');
-        }
-
         $view = \Config\Services::renderer();
         $response['html'] = $view->setVar('id', $id)->render('indikator_kinerja/components/modal_delete');
         return $this->respond($response, 200);
@@ -325,10 +342,6 @@ class IndikatorKinerja extends BaseController
 
     public function delete($id)
     {
-        if (session('level') == 3) {
-            return redirect()->to('/');
-        }
-
         $this->db->table('capaian_fakultas')->where('indikator_kinerja_id', $id)->delete();
         $this->db->table('target_fakultas')->where('indikator_kinerja_id', $id)->delete();
 
@@ -350,10 +363,6 @@ class IndikatorKinerja extends BaseController
 
     public function modal_tahun_baru()
     {
-        if (session('level') == 3) {
-            return redirect()->to('/');
-        }
-
         $data['tahun'] = $this->db->table('indikator_kinerja')
             ->select('
                 tahun
@@ -369,10 +378,6 @@ class IndikatorKinerja extends BaseController
 
     public function import_data_tahun()
     {
-        if (session('level') == 3) {
-            return redirect()->to('/');
-        }
-
         $rules = [
             'new_tahun' => [
                 'rules' => 'required',
@@ -499,10 +504,6 @@ class IndikatorKinerja extends BaseController
 
     public function jurusan($id)
     {
-        if (session('level') == 3) {
-            return redirect()->to('/');
-        }
-
         $data['id'] = $id;
 
         $data['ik'] = $this->db->table('indikator_kinerja_jurusan ikj')
@@ -535,10 +536,6 @@ class IndikatorKinerja extends BaseController
 
     public function get_cascading()
     {
-        if (session('level') == 3) {
-            return redirect()->to('/');
-        }
-
         $ik = $this->request->getGet('ik');
         $jurusan = $this->request->getGet('jurusan');
 
@@ -560,10 +557,6 @@ class IndikatorKinerja extends BaseController
 
     public function get_target()
     {
-        if (session('level') == 3) {
-            return redirect()->to('/');
-        }
-
         $ik = $this->request->getGet('ik');
         $jurusan = $this->request->getGet('jurusan');
         $cascading = $this->request->getGet('cascading');
@@ -584,10 +577,6 @@ class IndikatorKinerja extends BaseController
 
     public function store_jurusan($id)
     {
-        if (session('level') == 3) {
-            return redirect()->to('/');
-        }
-
         $rules = [
             'satuan' => [
                 'rules' => 'required',
@@ -670,10 +659,6 @@ class IndikatorKinerja extends BaseController
 
     public function update_jurusan($id)
     {
-        if (session('level') == 3) {
-            return redirect()->to('/');
-        }
-
         $rules = [
             'satuan' => [
                 'rules' => 'required',
@@ -775,7 +760,7 @@ class IndikatorKinerja extends BaseController
                     }
                 }
             }
-
+            
             $this->db->table('indikator_kinerja_jurusan')->insertBatch($data['indikator_kinerja_jurusan']);
             $this->db->table('target_jurusan')->insertBatch($data['target_jurusan']);
             $this->db->table('capaian_jurusan')->insertBatch($data['capaian_jurusan']);
@@ -799,7 +784,7 @@ class IndikatorKinerja extends BaseController
 
                 $result_cascading = array_merge(array_diff($post_data['cascading'][$jurusan_id], $old_cascading), array_diff($old_cascading, $post_data['cascading'][$jurusan_id]));
 
-                if ($result_cascading > 0) {
+                if (count($result_cascading) > 0) {
                     for ($j = 0; $j < count($result_cascading); $j++) {
                         $cascading_id = $result_cascading[$j];
 
@@ -860,6 +845,19 @@ class IndikatorKinerja extends BaseController
                             'triwulan_empat' => $post_data['tw4'][$jurusan_id][$cascading_id],
                         ];
 
+                        for ($k = 0; $k < count($uraian); $k++) {
+                            $data['capaian_jurusan'] = [
+                                'sumber_data' => $uraian[$k]['sumber_data'],
+                            ];
+
+                            $this->db->table('capaian_jurusan')
+                                ->where([
+                                    'indikator_kinerja_id' => $id,
+                                    'uraian' => $uraian[$k]['uraian'],
+                                ])
+                                ->update($data['capaian_jurusan']);
+                        }
+
                         $this->db->table('target_jurusan')->where([
                             'indikator_kinerja_id' => $id,
                             'cascading_id' => $cascading_id,
@@ -883,10 +881,6 @@ class IndikatorKinerja extends BaseController
 
     public function modal_pk()
     {
-        if (session('level') == 3) {
-            return redirect()->to('/');
-        }
-
         $data['jurusan'] = $this->db->table('jurusan')->get()->getResultArray();
         $data['tahun'] = $this->db->table('indikator_kinerja')
             ->select('tahun')
@@ -901,10 +895,6 @@ class IndikatorKinerja extends BaseController
 
     public function unduh_pk()
     {
-        if (session('level') == 3) {
-            return redirect()->to('/');
-        }
-
         $unit_kerja = $this->request->getGet('unit');
         $tahun = $this->request->getGet('tahun');
         $data['tahun'] = $tahun;

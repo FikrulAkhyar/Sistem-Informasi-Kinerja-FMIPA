@@ -93,5 +93,14 @@ define('EVENT_PRIORITY_NORMAL', 100);
  */
 define('EVENT_PRIORITY_HIGH', 10);
 
+// Gunakan di localhost
 $base = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) : 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']);
 defined('BASE') || define('BASE', $base);
+
+// Gunakan di server
+// $base = isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https' ? 'https://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) : 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']);
+// defined('BASE') || define('BASE', $base);
+
+// if ($_SERVER["DOCUMENT_ROOT"] == '/var/www') {
+//     $_SERVER["DOCUMENT_ROOT"] = $_SERVER["DOCUMENT_ROOT"] . '/iku';
+// }

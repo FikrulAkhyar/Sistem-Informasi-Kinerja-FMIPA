@@ -52,13 +52,17 @@ class Auth extends BaseController
                 return $this->respond($response, 422);
             }
 
+            $level = $this->db->table('level')->where('level_id', $pengguna['level_id'])->get()->getRowArray();
+            $level['menu_akses'] = explode(',', $level['menu_akses']);
+
             session()->set([
                 'isLoggedIn' => TRUE,
                 'username' => $pengguna['username'],
                 'nama' => $pengguna['nama'],
                 'pengguna_id' => $pengguna['pengguna_id'],
                 'level' => $pengguna['level_id'],
-                'jurusan' => $pengguna['jurusan_id']
+                'jurusan' => $pengguna['jurusan_id'],
+                'menu_akses' => $level['menu_akses']
             ]);
 
             $response = [

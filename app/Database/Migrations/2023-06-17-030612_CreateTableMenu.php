@@ -4,32 +4,33 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateTableLevel extends Migration
+class CreateTableMenu extends Migration
 {
     public function up()
     {
         $this->forge->addField([
-            'level_id' => [
+            'menu_id' => [
                 'type'       => 'INT',
                 'auto_increment' => true,
             ],
-            'nama_level' => [
+            'nama_menu' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
-            'menu_akses' => [
-                'type'       => 'TEXT',
+            'url' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
             ],
         ]);
-        $this->forge->addKey('level_id', true);
-        $this->forge->createTable('level');
+        $this->forge->addKey('menu_id', true);
+        $this->forge->createTable('menu');
 
         $seeder = \Config\Database::seeder();
-        $seeder->call('LevelSeeder');
+        $seeder->call('MenuSeeder');
     }
 
     public function down()
     {
-        $this->forge->dropTable('level');
+        $this->forge->dropTable('menu');
     }
 }
