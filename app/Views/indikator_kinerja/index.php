@@ -18,9 +18,9 @@
 
     <div class="my-3">
         <div class="text-end my-3">
-            <button class="btn btn-info btn-unduh-pk-modal my-2 lg:w-1/5 w-full">Unduh Perjanjian Kinerja</button>
-            <button class="btn btn-success btn-tahun-baru my-2 lg:w-1/5 w-full">Tambah Tahun Baru</button>
-            <button class="btn btn-primary btn-tambah lg:w-1/5 w-full">Tambah Indikator</button>
+            <button class="btn btn-info btn-unduh-pk-modal my-2 lg:w-60 w-full">Unduh Perjanjian Kinerja</button>
+            <button class="btn btn-success btn-tahun-baru my-2 lg:w-60 w-full">Tambah Tahun Baru</button>
+            <button class="btn btn-primary btn-tambah lg:w-60 w-full">Tambah Indikator</button>
         </div>
         <table id="table" class="table w-full" style="width: 100%;">
             <thead>
