@@ -88,9 +88,6 @@ class IndikatorKinerja extends BaseController
             'cascading' => [
                 'rules' => 'required',
             ],
-            'file_pendukung' => [
-                'rules' => 'uploaded[file_pendukung]|mime_in[file,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/pdf]|max_size[file_pendukung,2048]',
-            ],
             'level_akses' => [
                 'rules' => 'required',
             ],

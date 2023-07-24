@@ -99,7 +99,7 @@
             </label>
             <input type="file" name="file_pendukung" id="file_pendukung" class="file-input file-input-bordered file-input-primary" />
             <label class="label">
-                <span class="label-text-alt text-error">Ekstension file harus .xlsx dengan max size 2MB</span>
+                <span class="label-text-alt text-error">Ekstension file harus .xlsx atau.pdf dengan max size 2MB</span>
             </label>
         </div>
 
@@ -195,6 +195,32 @@
     $('#uraian').on('select2:unselect', function(e) {
         uraianList.remove('name', e.params.data.text)
     })
+
+    $(document).ready(function() {
+        $("#file_pendukung").change(function() {
+            checkFileSize();
+        });
+
+        function checkFileSize() {
+            const fileInput = $("#file_pendukung")[0];
+            const maxFileSizeInBytes = 2 * 1024 * 1024; // 2 MB
+            const allowedFileTypes = ["application/pdf", "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"];
+
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileSize = file.size;
+                const fileType = file.type;
+
+                if (fileSize > maxFileSizeInBytes) {
+                    toastr.error("File melebihi ukuran maksimum 2 MB");
+                    fileInput.value = ''; 
+                } else if (!allowedFileTypes.includes(fileType)) {
+                    toastr.error("Jenis file tidak diizinkan. Hanya file Excel (.xlsx, .xls) dan PDF yang diizinkan.")
+                    fileInput.value = ''; 
+                }
+            }
+        }
+    });
 
     initFormAjax('#form-add-indikator', {
         success: function(response) {
