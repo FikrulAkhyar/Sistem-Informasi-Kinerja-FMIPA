@@ -1,6 +1,7 @@
 <!-- 
     Coded By Fikrul Akhyar
     https://github.com/FikrulAkhyar
+    https://www.linkedin.com/in/fikrulakhyar/
 -->
 <!DOCTYPE html>
 <html lang="en">
