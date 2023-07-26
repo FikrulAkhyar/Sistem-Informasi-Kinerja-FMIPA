@@ -187,6 +187,12 @@
         ]
     })
 
+    const hasSymbols = (inputString) => {
+        var pattern = /[^\w\s]/;
+
+        return pattern.test(inputString);
+    }
+
     $("#uraian option:selected").each(function() {
         uraianList.add({
             name: $(this).text(),
@@ -199,14 +205,25 @@
     })
 
     $('#uraian').on('select2:select', function(e) {
-        uraianList.add({
-            name: e.params.data.text,
-        })
+        if (hasSymbols(e.params.data.text)) {
+            toastr.error("Tidak boleh terdapat simbol pada kalimat uraian")
 
-        let uraian_name = e.params.data.text.replace(/ /g, "_");
-        $('#sumber_data').attr('id', `sumber_data_${uraian_name}`)
-        $(`#sumber_data_${uraian_name}`).attr('name', `sumber_data[${uraian_name}]`)
-    })
+            var selectedValues = $('#uraian').val();
+            var indexToRemove = selectedValues.indexOf(e.params.data.id);
+            if (indexToRemove > -1) {
+                selectedValues.splice(indexToRemove, 1);
+                $('#uraian').val(selectedValues).trigger('change');
+            }
+        } else {
+            uraianList.add({
+                name: e.params.data.text,
+            });
+
+            let uraian_name = e.params.data.text.replace(/ /g, "_");
+            $('#sumber_data').attr('id', `sumber_data_${uraian_name}`);
+            $(`#sumber_data_${uraian_name}`).attr('name', `sumber_data[${uraian_name}]`);
+        }
+    });
 
     $('#uraian').on('select2:unselect', function(e) {
         uraianList.remove('name', e.params.data.text)
