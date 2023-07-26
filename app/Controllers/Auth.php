@@ -54,7 +54,12 @@ class Auth extends BaseController
             }
 
             $level = $this->db->table('level')->where('level_id', $pengguna['level_id'])->get()->getRowArray();
-            $level['menu_akses'] = explode(',', $level['menu_akses']);
+            $menu_akses = explode(',', $level['menu_akses']);
+            $url_akses = [];
+            for ($i=0; $i < count($menu_akses); $i++) { 
+                $menu = $this->db->table('menu')->where('nama_menu', $menu_akses[$i])->get()->getRowArray();
+                array_push($url_akses, $menu['url']);
+            }
 
             session()->set([
                 'isLoggedIn' => TRUE,
@@ -63,7 +68,7 @@ class Auth extends BaseController
                 'pengguna_id' => $pengguna['pengguna_id'],
                 'level' => $pengguna['level_id'],
                 'jurusan' => $pengguna['jurusan_id'],
-                'menu_akses' => $level['menu_akses']
+                'menu_akses' => $url_akses
             ]);
 
             $response = [

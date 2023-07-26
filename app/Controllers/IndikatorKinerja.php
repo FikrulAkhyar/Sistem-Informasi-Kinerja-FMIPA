@@ -91,6 +91,9 @@ class IndikatorKinerja extends BaseController
             'level_akses' => [
                 'rules' => 'required',
             ],
+            'file_pendukung' => [
+                'rules' => 'uploaded[file_pendukung]',
+            ],
         ];
 
         if (!($this->validate($rules))) {

@@ -14,7 +14,7 @@
         <select type="text" name="menu_akses[]" id="menu_akses" data-placeholder="Pilih hak akses" multiple="multiple" class="select select-bordered" style="width: 100%;">
             <option></option>
             <?php foreach ($menu as $m) : ?>
-                <option value="<?= $m['url'] ?>"><?= $m['nama_menu'] ?></option>
+                <option value="<?= $m['nama_menu'] ?>"><?= $m['nama_menu'] ?></option>
             <?php endforeach ?>
         </select>
     </div>

@@ -28,7 +28,7 @@
                 <!-- Page content here -->
 
                 <!-- Navbar -->
-                <div class="navbar bg-base-100">
+                <div class="navbar shadow bg-base-100 w-full">
                     <div class="flex-1">
                         <label for="my-drawer-2" class="drawer-button lg:hidden px-3 pt-3">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

@@ -14,32 +14,32 @@ class MenuSeeder extends Seeder
         $builder->insertBatch([
             [
                 'menu_id' => '1',
-                'nama_menu' => 'Menu Indikator Kinerja',
+                'nama_menu' => 'Indikator Kinerja',
                 'url' => '/indikatorKinerja'
             ],
             [
                 'menu_id' => '2',
-                'nama_menu' => 'Menu Capaian Fakultas',
+                'nama_menu' => 'Capaian Fakultas',
                 'url' => '/capaianFakultas'
             ],
             [
                 'menu_id' => '3',
-                'nama_menu' => 'Menu Capaian Jurusan',
+                'nama_menu' => 'Capaian Jurusan',
                 'url' => '/capaianJurusan'
             ],
             [
                 'menu_id' => '4',
-                'nama_menu' => 'Menu Kelola Level',
+                'nama_menu' => 'Kelola Level',
                 'url' => '/level'
             ],
             [
                 'menu_id' => '5',
-                'nama_menu' => 'Menu Kelola Pengguna',
+                'nama_menu' => 'Kelola Pengguna',
                 'url' => '/pengguna'
             ],
             [
                 'menu_id' => '6',
-                'nama_menu' => 'Menu Kelola Sasaran',
+                'nama_menu' => 'Kelola Sasaran',
                 'url' => '/sasaran'
             ],
         ]);
