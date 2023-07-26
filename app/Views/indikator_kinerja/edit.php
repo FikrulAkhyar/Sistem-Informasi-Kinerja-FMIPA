@@ -130,6 +130,9 @@
                     <option selected data-sumber="<?= $u['sumber_data'] ?>"><?= $u['uraian'] ?></option>
                 <?php endforeach ?>
             </select>
+            <label class="label">
+                <span class="label-text-alt text-error">Jangan terdapat symbol pada kalimat uraian</span>
+            </label>
         </div>
 
         <div class="form-control mt-3">

@@ -131,6 +131,9 @@
             </label>
             <select name="uraian[]" id="uraian" multiple="multiple" data-placeholder="Masukkan uraian" class="select select-bordered" style="width: 100%;">
             </select>
+            <label class="label">
+                <span class="label-text-alt text-error">Jangan terdapat symbol pada kalimat uraian</span>
+            </label>
         </div>
 
         <div class="form-control mt-3">
