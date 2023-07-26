@@ -48,66 +48,81 @@ class CapaianJurusan extends BaseController
         $jurusan = $this->request->getGet('jurusan');
         $triwulan = $this->request->getGet('triwulan');
 
+        $subQuery = $this->db->table('capaian_jurusan c')
+            ->join('indikator_kinerja ik', 'ik.indikator_kinerja_id = c.indikator_kinerja_id')
+            ->select('
+                c.indikator_kinerja_id, 
+                c.capaian_jurusan_id,
+                SUM(c.hasil) as total_capaian,
+                c.file
+            ')
+            ->where([
+                'ik.tahun' => $tahun,
+                'c.triwulan_id' => $triwulan,
+                'c.jurusan_id' => $jurusan,
+            ])
+            ->groupBy('c.indikator_kinerja_id')
+            ->getCompiledSelect();
+
         $builder = $this->db->table('indikator_kinerja ik')
             ->join('indikator_kinerja_jurusan ikj', 'ikj.indikator_kinerja_id = ik.indikator_kinerja_id')
-            ->join('capaian_jurusan c', 'c.indikator_kinerja_id = ik.indikator_kinerja_id')
             ->join('target_jurusan t', 't.indikator_kinerja_id = ik.indikator_kinerja_id')
-            ->join('satuan s', 's.satuan_id = ikj.satuan_id');
+            ->join('satuan s', 's.satuan_id = ikj.satuan_id')
+            ->join("($subQuery) sub", 'sub.indikator_kinerja_id = ik.indikator_kinerja_id', 'left');
 
         if ($triwulan == 1) {
             $builder = $builder->select('
-                c.capaian_jurusan_id,
                 ik.indikator_kinerja_id,
                 ik.kode_indikator_kinerja,
                 ik.level_akses,
                 s.nama_satuan,
                 t.triwulan_satu as target,
-                SUM(c.hasil) as capaian,
-                c.file
+                COALESCE(sub.total_capaian, 0) as capaian,
+                sub.capaian_jurusan_id,
+                sub.file
             ');
         } else if ($triwulan == 2) {
             $builder = $builder->select('
-                c.capaian_jurusan_id,
                 ik.indikator_kinerja_id,
                 ik.kode_indikator_kinerja,
                 ik.level_akses,
                 s.nama_satuan,
                 t.triwulan_dua as target,
-                SUM(c.hasil) as capaian,
-                c.file
+                COALESCE(sub.total_capaian, 0) as capaian,
+                sub.capaian_jurusan_id,
+                sub.file
             ');
         } else if ($triwulan == 3) {
             $builder = $builder->select('
-                c.capaian_jurusan_id,
                 ik.indikator_kinerja_id,
                 ik.kode_indikator_kinerja,
                 ik.level_akses,
                 s.nama_satuan,
                 t.triwulan_tiga as target,
-                SUM(c.hasil) as capaian,
-                c.file
+                COALESCE(sub.total_capaian, 0) as capaian,
+                sub.capaian_jurusan_id,
+                sub.file
             ');
         } else if ($triwulan == 4) {
             $builder = $builder->select('
-                c.capaian_jurusan_id,
                 ik.indikator_kinerja_id,
                 ik.kode_indikator_kinerja,
                 ik.level_akses,
                 s.nama_satuan,
                 t.triwulan_empat as target,
-                SUM(c.hasil) as capaian,
-                c.file
+                COALESCE(sub.total_capaian, 0) as capaian,
+                sub.capaian_jurusan_id,
+                sub.file
             ');
         }
 
-        $builder = $builder->groupBy('ik.kode_indikator_kinerja')
+        $builder = $builder
             ->where([
                 'ik.tahun' => $tahun,
-                'c.triwulan_id' => $triwulan,
                 'ikj.jurusan_id' => $jurusan,
-                'c.jurusan_id' => $jurusan,
                 't.jurusan_id' => $jurusan,
-            ]);
+            ])
+            ->groupBy('ik.indikator_kinerja_id');
 
         return DataTable::of($builder)->toJson(TRUE);
     }

@@ -68,7 +68,7 @@
                 <!-- Footer -->
                 <footer class="footer footer-center p-4 ">
                     <div>
-                        <p>Copyright © <?= date('Y') ?> - All right reserved by FMIPA USK</p>
+                        <p>Copyright © 2022 - All right reserved by FMIPA USK</p>
                     </div>
                 </footer>
                 <!-- End of Footer -->
